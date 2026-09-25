@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Copy, Mail, MessageCircle, Phone } from "lucide-react";
+import { contactLinks, prepareContact } from "@/lib/contact-request";
 import { EMAIL, PHONE_DISPLAY, PHONE_TEL, serviceOptions } from "@/lib/site";
 
 type Fields = {
@@ -18,18 +19,6 @@ const empty: Fields = {
   message: "",
 };
 
-function buildBody(fields: Fields) {
-  return [
-    `Bună ziua, sunt ${fields.name.trim()}.`,
-    `Telefon: ${fields.phone.trim()}.`,
-    fields.email.trim() ? `Email: ${fields.email.trim()}.` : "",
-    `Serviciu: ${fields.service}.`,
-    fields.message.trim(),
-  ]
-    .filter(Boolean)
-    .join("\n");
-}
-
 export function ContactForm() {
   const [fields, setFields] = useState<Fields>(empty);
   const [error, setError] = useState("");
@@ -43,55 +32,41 @@ export function ContactForm() {
 
   function onSubmit(event: { preventDefault(): void }) {
     event.preventDefault();
-    const name = fields.name.trim();
-    const phone = fields.phone.trim();
-    const email = fields.email.trim();
-    if (name.length < 2) {
-      setError("Spune-ne cum te cheamă.");
+    const result = prepareContact(fields);
+    if (!result.ok) {
+      setReady("");
+      setError(result.error);
       return;
     }
-    const digits = phone.replace(/\D/g, "");
-    if (digits.length < 10) {
-      setError("Lasă un număr de telefon la care te putem suna.");
-      return;
-    }
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError("Emailul nu pare complet. Poți să-l lași gol.");
-      return;
-    }
-    setReady(buildBody({ ...fields, name, phone, email }));
+    setError("");
+    setReady(result.body);
     setCopied(false);
   }
 
-  const whatsapp = ready
-    ? `https://wa.me/${PHONE_TEL.replace("+", "")}?text=${encodeURIComponent(ready)}`
-    : "";
-  const mailto = ready
-    ? `mailto:${EMAIL}?subject=${encodeURIComponent("Cerere ofertă Europlay Alco")}&body=${encodeURIComponent(ready)}`
-    : "";
+  const links = ready ? contactLinks(ready, PHONE_TEL, EMAIL) : null;
 
   return (
-    <div className="rounded-card border border-line bg-surface p-5 sm:p-7">
-      {ready ? (
+    <div className="min-w-0 rounded-card border border-line bg-surface p-5 sm:p-7">
+      {ready && links ? (
         <div>
           <p className="font-display text-2xl text-ink">Mesajul este pregătit</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">
             Nu îl păstrăm pe site. Îl trimiți direct din telefonul tău — pe WhatsApp, pe email
             sau printr-un apel la {PHONE_DISPLAY}.
           </p>
-          <pre className="mt-5 whitespace-pre-wrap rounded-xl bg-bg p-4 text-sm leading-relaxed text-ink">
+          <pre className="mt-5 max-w-full overflow-x-auto whitespace-pre-wrap break-words rounded-xl bg-bg p-4 text-sm leading-relaxed text-ink">
             {ready}
           </pre>
           <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <a
-              href={whatsapp}
+              href={links.whatsapp}
               className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-accent px-5 text-sm font-semibold text-on-accent"
             >
               <MessageCircle className="size-4" aria-hidden="true" />
               Trimite pe WhatsApp
             </a>
             <a
-              href={mailto}
+              href={links.mailto}
               className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-line px-5 text-sm font-semibold text-ink"
             >
               <Mail className="size-4" aria-hidden="true" />
@@ -132,17 +107,16 @@ export function ContactForm() {
           </button>
         </div>
       ) : (
-        <form onSubmit={onSubmit} noValidate>
+        <form noValidate method="post" action="#contact" onSubmit={onSubmit}>
           <p className="font-display text-2xl text-ink">Cere o ofertă</p>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            Spune pe scurt ce ai de făcut. Te sunăm la numărul lăsat, sau trimiți cererea pe
-            WhatsApp / email.
+            Spune pe scurt ce ai de făcut. Mesajul este opțional. Te sunăm la numărul lăsat, sau
+            trimiți cererea pe WhatsApp / email.
           </p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            <label className="block text-sm">
+            <label className="block min-w-0 text-sm">
               <span className="text-muted">Nume</span>
               <input
-                required
                 name="name"
                 autoComplete="name"
                 value={fields.name}
@@ -150,10 +124,9 @@ export function ContactForm() {
                 className="mt-1 w-full rounded-xl border border-line bg-bg px-3 py-3 text-ink outline-none focus:border-ink"
               />
             </label>
-            <label className="block text-sm">
+            <label className="block min-w-0 text-sm">
               <span className="text-muted">Telefon</span>
               <input
-                required
                 name="phone"
                 type="tel"
                 autoComplete="tel"
@@ -164,7 +137,7 @@ export function ContactForm() {
                 className="mt-1 w-full rounded-xl border border-line bg-bg px-3 py-3 text-ink outline-none focus:border-ink"
               />
             </label>
-            <label className="block text-sm">
+            <label className="block min-w-0 text-sm">
               <span className="text-muted">Email (opțional)</span>
               <input
                 name="email"
@@ -175,7 +148,7 @@ export function ContactForm() {
                 className="mt-1 w-full rounded-xl border border-line bg-bg px-3 py-3 text-ink outline-none focus:border-ink"
               />
             </label>
-            <label className="block text-sm">
+            <label className="block min-w-0 text-sm">
               <span className="text-muted">Serviciu</span>
               <select
                 name="service"
@@ -189,8 +162,8 @@ export function ContactForm() {
               </select>
             </label>
           </div>
-          <label className="mt-4 block text-sm">
-            <span className="text-muted">Ce ai nevoie</span>
+          <label className="mt-4 block min-w-0 text-sm">
+            <span className="text-muted">Ce ai nevoie (opțional)</span>
             <textarea
               name="message"
               rows={4}

@@ -142,6 +142,50 @@ test("phone, offer, and Google links point at the right places", { timeout: 3000
   }
 });
 
+test("a request without a message stays on the page", { timeout: 30000 }, async () => {
+  const { page, monitors } = await openPage({ width: 1280, height: 900 });
+  try {
+    const form = page.locator("#contact form");
+    await form.scrollIntoViewIfNeeded();
+    await form.locator('input[name="name"]').fill("Maria Ionescu");
+    await form.locator('input[name="phone"]').fill("0731 289 684");
+    await form.locator('input[name="email"]').fill("maria@example.com");
+    await form.locator("select").selectOption({ label: "Plase insecte" });
+    await form.locator("textarea").fill("");
+    await form.getByRole("button", { name: "Pregătește cererea" }).click();
+
+    await page.getByText("Mesajul este pregătit").waitFor();
+    assert.equal(new URL(page.url()).search, "");
+    assert.equal(await page.getByText("Ceva nu a mers").count(), 0);
+    const body = await page.locator("#contact pre").innerText();
+    assert.match(body, /Maria Ionescu/);
+    assert.match(body, /0731 289 684/);
+    assert.match(body, /maria@example.com/);
+    assert.match(body, /Plase insecte/);
+    assert.doesNotMatch(body, /Ce ai nevoie/);
+
+    const whatsapp = await page.getByRole("link", { name: "Trimite pe WhatsApp" }).getAttribute("href");
+    const mailto = await page.getByRole("link", { name: "Deschide emailul" }).getAttribute("href");
+    assert.doesNotThrow(() => new URL(whatsapp));
+    assert.doesNotThrow(() => new URL(mailto));
+    assert.match(decodeURIComponent(whatsapp.split("text=")[1]), /Maria Ionescu/);
+
+    await page.getByRole("button", { name: "Scrie altă cerere" }).click();
+    await form.waitFor();
+
+    await form.locator('input[name="name"]').fill("Ion Popescu");
+    await form.locator('input[name="phone"]').fill("+40 731 289 684");
+    await form.locator("textarea").fill("   ");
+    await form.locator('input[name="email"]').press("Enter");
+    await page.getByText("Mesajul este pregătit").waitFor();
+    assert.match(await page.locator("#contact pre").innerText(), /Ion Popescu/);
+    assert.equal(new URL(page.url()).search, "");
+    assertClean(monitors, "empty message");
+  } finally {
+    await page.close();
+  }
+});
+
 test("contact form rejects bad input and prepares a real request", { timeout: 30000 }, async () => {
   const { page, monitors } = await openPage({ width: 1280, height: 900 });
   try {
