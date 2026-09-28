@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ADDRESS_LINES, EMAIL, LEGAL, PHONE_DISPLAY, PHONE_TEL } from "@/lib/site";
+import { ADDRESS_LINES, EMAIL, LEGAL, MAPS_HREF, PHONE_DISPLAY, PHONE_TEL } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -23,7 +23,15 @@ export function Footer() {
         </div>
         <div className="text-sm leading-relaxed text-mist">
           {ADDRESS_LINES.map((line) => (
-            <p key={line}>{line}</p>
+            <a
+              key={line}
+              href={MAPS_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block hover:text-paper"
+            >
+              {line}
+            </a>
           ))}
           <p className="mt-3">{LEGAL}</p>
         </div>

@@ -371,7 +371,7 @@ test("partner logos load and do not overlap", { timeout: 30000 }, async () => {
         assert.equal(overlaps, false, `${a.alt} overlaps ${b.alt}`);
       }
     }
-    const label = await section.getByText("PARTENERI").boundingBox();
+    const label = await section.getByRole("heading", { name: "Parteneri" }).boundingBox();
     assert.ok(label);
     for (const box of boxes) {
       const overlaps =
@@ -379,7 +379,7 @@ test("partner logos load and do not overlap", { timeout: 30000 }, async () => {
         label.x + label.width - 1 > box.x &&
         label.y < box.y + box.h - 1 &&
         label.y + label.height - 1 > box.y;
-      assert.equal(overlaps, false, `PARTENERI overlaps ${box.alt}`);
+      assert.equal(overlaps, false, `Parteneri overlaps ${box.alt}`);
     }
     assertClean(monitors, "partners");
   } finally {
@@ -503,6 +503,105 @@ test("the firm is dated 2017 and Rehau is a partner", { timeout: 30000 }, async 
     await page.goto(`${base}/legal`, { waitUntil: "domcontentloaded" });
     assert.doesNotMatch(await page.locator("body").innerText(), /deviz în lei/i);
     assertClean(monitors, "2017 and Rehau");
+  } finally {
+    await page.close();
+  }
+});
+
+test("section titles use the Onest style from the old site", { timeout: 30000 }, async () => {
+  const { page, monitors } = await openPage({ width: 1280, height: 800 });
+  try {
+    for (const name of [
+      "Parteneri",
+      "Servicii Europlay Alco",
+      "Montaj termopane",
+      "Încredere",
+      "Întrebări",
+      "Showroom",
+    ]) {
+      const heading = page.getByRole("heading", { name, exact: true });
+      await heading.scrollIntoViewIfNeeded();
+      const style = await heading.evaluate((el) => {
+        const computed = getComputedStyle(el);
+        return {
+          font: computed.fontFamily,
+          weight: computed.fontWeight,
+          align: computed.textAlign,
+          size: parseFloat(computed.fontSize),
+        };
+      });
+      assert.match(style.font, /Onest/, `${name} font is ${style.font}`);
+      assert.equal(style.weight, "700", `${name} is not bold`);
+      assert.equal(style.align, "center", `${name} is not centered`);
+      assert.ok(style.size >= 40, `${name} is only ${style.size}px`);
+    }
+    const trust = await page.getByRole("heading", { name: "Încredere" }).evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
+    const services = await page
+      .getByRole("heading", { name: "Servicii Europlay Alco" })
+      .evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
+    assert.ok(trust > services, "Încredere should be larger, like the old site");
+    assertClean(monitors, "heading style");
+  } finally {
+    await page.close();
+  }
+});
+
+test("the trust photo slides up when it scrolls into view", { timeout: 30000 }, async () => {
+  const page = await browser.newPage({ viewport: { width: 1280, height: 700 } });
+  const monitors = attachMonitors(page);
+  try {
+    await page.emulateMedia({ reducedMotion: "no-preference" });
+    await page.goto(base, { waitUntil: "domcontentloaded" });
+    await page.locator("h1").waitFor();
+    const photo = page.locator("img[alt='Gheorghe Chircu, Europlay Alco']");
+    const before = await photo.evaluate((el) => {
+      const style = getComputedStyle(el);
+      return { opacity: style.opacity, translate: style.translate, name: style.animationName };
+    });
+    assert.equal(before.name, "trust-slide");
+    assert.ok(Number(before.opacity) < 0.2, `photo starts too visible (${before.opacity})`);
+    await page.evaluate(() => {
+      const img = document.querySelector("img[alt='Gheorghe Chircu, Europlay Alco']");
+      const top = img.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: "instant" });
+    });
+    await page.waitForFunction(() => {
+      const img = document.querySelector("img[alt='Gheorghe Chircu, Europlay Alco']");
+      return img && Number(getComputedStyle(img).opacity) > 0.9;
+    });
+    assertClean(monitors, "trust slide");
+  } finally {
+    await page.close();
+  }
+});
+
+test("site links open the right pages", { timeout: 30000 }, async () => {
+  const { page, monitors } = await openPage({ width: 1280, height: 800 });
+  try {
+    const phones = await page.locator('a[href^="tel:"]').evaluateAll((nodes) => nodes.map((node) => node.getAttribute("href")));
+    assert.ok(phones.length >= 2 && phones.every((href) => href === "tel:+40731289684"), phones.join(","));
+
+    const wiki = page.locator('a[href="https://ro.wikipedia.org/wiki/Termopan"]');
+    await wiki.scrollIntoViewIfNeeded();
+    assert.equal(await wiki.getAttribute("target"), "_blank");
+
+    const mapLinks = page.locator(`a[href="${"https://www.google.com/maps/search/?api=1&query=Europlay+Alco+Theodor+Pallady+37+Bucuresti"}"]`);
+    assert.ok((await mapLinks.count()) >= 2, "map links missing");
+    assert.equal(await mapLinks.first().getAttribute("target"), "_blank");
+
+    await page.getByRole("link", { name: "Confidențialitate" }).click();
+    await page.waitForURL(/\/legal/);
+    await page.locator("#confidentialitate").waitFor();
+    await page.goto(`${base}/legal#termeni`, { waitUntil: "domcontentloaded" });
+    await page.locator("#termeni").waitFor();
+    await page.goto(`${base}/legal#cookie`, { waitUntil: "domcontentloaded" });
+    await page.locator("#cookie").waitFor();
+
+    await page.goto(`${base}/contact`, { waitUntil: "domcontentloaded" });
+    await page.getByRole("heading", { level: 1 }).waitFor();
+    await page.goto(`${base}/ferestre-termopan-bucuresti`, { waitUntil: "domcontentloaded" });
+    await page.getByRole("heading", { level: 1 }).waitFor();
+    assertClean(monitors, "links pages");
   } finally {
     await page.close();
   }
