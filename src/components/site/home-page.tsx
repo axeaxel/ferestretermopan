@@ -208,7 +208,7 @@ export function HomePage() {
               </a>
             </div>
             <div className="lg:col-span-3">
-              <div className="overflow-hidden rounded-card bg-ink">
+              <div className="overflow-hidden rounded-card bg-deep">
                 <iframe
                   className="aspect-video w-full"
                   src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}`}
@@ -217,7 +217,7 @@ export function HomePage() {
                   allowFullScreen
                 />
               </div>
-              <div className="mt-4 overflow-hidden rounded-card bg-ink">
+              <div className="mt-4 overflow-hidden rounded-card bg-deep">
                 <iframe
                   className="aspect-video w-full"
                   src={`https://www.youtube-nocookie.com/embed/${PROFILE_VIDEO_ID}`}
@@ -419,7 +419,7 @@ export function HomePage() {
           </a>
           <a
             href="#contact"
-            className="inline-flex min-h-12 items-center justify-center rounded-full bg-ink text-sm font-semibold text-paper"
+            className="inline-flex min-h-12 items-center justify-center rounded-full border border-line bg-surface text-sm font-semibold text-ink"
           >
             Cere ofertă
           </a>

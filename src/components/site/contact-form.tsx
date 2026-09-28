@@ -180,7 +180,7 @@ export function ContactForm() {
           ) : null}
           <button
             type="submit"
-            className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-ink px-6 text-sm font-semibold text-paper sm:w-auto"
+            className="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-accent px-6 text-sm font-semibold text-on-accent sm:w-auto"
           >
             Pregătește cererea
           </button>

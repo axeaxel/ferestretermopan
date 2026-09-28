@@ -12,7 +12,7 @@ export function Footer() {
               alt=""
               width={40}
               height={40}
-              className="size-10 rounded-md bg-ink object-contain p-1"
+              className="size-10 rounded-md bg-deep object-contain p-1"
             />
             <p className="font-display text-xl">Europlay Alco</p>
           </div>
