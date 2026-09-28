@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { MapPin, Phone, Star, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight, MapPin, Phone, Star, X } from "lucide-react";
 import { ContactForm } from "@/components/site/contact-form";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
@@ -24,6 +24,7 @@ import {
 
 export function HomePage() {
   const [photo, setPhoto] = useState<(typeof works)[number] | null>(null);
+  const worksRef = useRef<HTMLUListElement>(null);
   const featured = services.filter((item) => item.wide);
   const rest = services.filter((item) => !item.wide);
 
@@ -175,13 +176,42 @@ export function HomePage() {
 
         <section id="lucrari" className="scroll-mt-28 border-y border-line bg-surface">
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-            <h2 className="font-display text-4xl leading-tight sm:text-5xl">Lucrări</h2>
-            <p className="mt-3 max-w-xl text-base leading-6 text-muted">
-              Câteva montaje din teren. Apasă o poză ca s-o vezi mai mare.
-            </p>
-            <ul className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+            <div className="flex items-end justify-between gap-4">
+              <div>
+                <h2 className="font-display text-4xl leading-tight sm:text-5xl">Lucrări</h2>
+                <p className="mt-3 max-w-xl text-base leading-6 text-muted">
+                  Câteva montaje din teren. Apasă o poză ca s-o vezi mai mare.
+                </p>
+              </div>
+              <div className="flex shrink-0 gap-2">
+                <button
+                  type="button"
+                  aria-label="Lucrările anterioare"
+                  className="inline-flex size-11 items-center justify-center rounded-full border border-line bg-bg text-ink"
+                  onClick={() =>
+                    worksRef.current?.scrollBy({ left: -worksRef.current.clientWidth * 0.8, behavior: "smooth" })
+                  }
+                >
+                  <ChevronLeft className="size-5" aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Lucrările următoare"
+                  className="inline-flex size-11 items-center justify-center rounded-full border border-line bg-bg text-ink"
+                  onClick={() =>
+                    worksRef.current?.scrollBy({ left: worksRef.current.clientWidth * 0.8, behavior: "smooth" })
+                  }
+                >
+                  <ChevronRight className="size-5" aria-hidden="true" />
+                </button>
+              </div>
+            </div>
+            <ul
+              ref={worksRef}
+              className="mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth pb-2"
+            >
               {works.map((item) => (
-                <li key={item.src}>
+                <li key={item.src} className="w-[78%] shrink-0 snap-start sm:w-[46%] lg:w-[23%]">
                   <button
                     type="button"
                     className="block w-full overflow-hidden rounded-xl"

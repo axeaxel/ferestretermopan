@@ -243,7 +243,13 @@ test("contact form rejects bad input and prepares a real request", { timeout: 30
 test("a work photo opens and closes", { timeout: 30000 }, async () => {
   const { page, monitors } = await openPage({ width: 1280, height: 800 });
   try {
-    await page.locator("#lucrari button").first().click();
+    const row = page.locator("#lucrari ul");
+    const before = await row.evaluate((el) => el.scrollLeft);
+    await page.getByRole("button", { name: "Lucrările următoare" }).click();
+    await page.waitForTimeout(400);
+    const after = await row.evaluate((el) => el.scrollLeft);
+    assert.ok(after > before, "carousel did not move");
+    await page.locator("#lucrari ul button").first().click();
     const dialog = page.getByRole("dialog");
     await dialog.waitFor();
     const photo = dialog.locator("img");
