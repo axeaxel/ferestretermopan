@@ -21,9 +21,9 @@ export function Header() {
           <img
             src="/media/logo.webp"
             alt=""
-            width={44}
+            width={68}
             height={44}
-            className="size-11 shrink-0 rounded-lg bg-deep object-contain p-1"
+            className="h-11 w-auto shrink-0 object-contain"
           />
           <span className="min-w-0">
             <span className="block truncate font-display text-lg leading-none text-gold">

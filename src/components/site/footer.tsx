@@ -10,9 +10,9 @@ export function Footer() {
             <img
               src="/media/logo.webp"
               alt=""
-              width={40}
+              width={62}
               height={40}
-              className="size-10 rounded-md bg-deep object-contain p-1"
+              className="h-10 w-auto shrink-0 object-contain"
             />
             <p className="font-display text-xl">Europlay Alco</p>
           </div>
