@@ -105,9 +105,9 @@ export function HomePage() {
           </div>
         </section>
 
-        <section aria-label="Parteneri" className="border-y border-line bg-surface">
+        <section aria-label="Parteneri" className="border-y border-line bg-white">
           <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 sm:px-6 md:flex-row md:items-center md:gap-10">
-            <p className="shrink-0 text-xs tracking-widest text-muted">PARTENERI</p>
+            <p className="shrink-0 text-xs tracking-widest text-[#141a2a]">PARTENERI</p>
             <ul className="flex flex-1 flex-wrap items-center gap-x-10 gap-y-5">
               {partners.map((item) => (
                 <li key={item.name}>

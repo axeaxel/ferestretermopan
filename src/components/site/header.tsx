@@ -26,7 +26,7 @@ export function Header() {
             className="size-11 shrink-0 rounded-lg bg-deep object-contain p-1"
           />
           <span className="min-w-0">
-            <span className="block truncate font-display text-lg leading-none text-paper">
+            <span className="block truncate font-display text-lg leading-none text-gold">
               Europlay Alco
             </span>
             <span className="mt-1 hidden truncate text-xs tracking-wide text-mist sm:block">
