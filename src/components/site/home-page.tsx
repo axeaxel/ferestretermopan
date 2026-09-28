@@ -70,7 +70,7 @@ export function HomePage() {
             </h1>
             <p className="mt-5 max-w-xl text-base leading-6 text-muted">
               Vei fi surprins de calitatea și atenția la detalii oferită de Europlay Alco la
-              tâmplăria din aluminiu și PVC. Peste 25 de ani de ferestre termopan, în București.
+              tâmplăria din aluminiu și PVC.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
