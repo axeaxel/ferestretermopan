@@ -111,7 +111,7 @@ export function HomePage() {
                   className={`aspect-video w-full rounded-card object-cover ${index % 2 === 1 ? "md:order-2" : ""}`}
                 />
                 <div className="min-w-0">
-                  <h3 className="font-display text-3xl leading-tight">{item.title}</h3>
+                  <h3 className="section-title">{item.title}</h3>
                   <p className="mt-4 text-base leading-6 text-muted">{item.text}</p>
                 </div>
               </article>
@@ -120,7 +120,7 @@ export function HomePage() {
           <ul className="mt-16 grid gap-x-16 gap-y-10 sm:grid-cols-2">
             {rest.map((item) => (
               <li key={item.title}>
-                <h3 className="font-display text-2xl leading-tight">{item.title}</h3>
+                <h3 className="section-title">{item.title}</h3>
                 <p className="mt-3 text-base leading-6 text-muted">{item.text}</p>
               </li>
             ))}
