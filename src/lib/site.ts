@@ -16,12 +16,12 @@ export const VIDEO_ID = "ZmB3dV6wDnc";
 export const PROFILE_VIDEO_ID = "u98aHHP8lKI";
 
 export const partners = [
-  "ALUMIL",
-  "GEALAN",
-  "SALAMANDER",
-  "WEISS PROFIL",
-  "REYNAERS",
-  "TRESPA",
+  { name: "ALUMIL", src: "/media/partners/alumil.png" },
+  { name: "GEALAN", src: "/media/partners/gealan.png" },
+  { name: "SALAMANDER", src: "/media/partners/salamander.png" },
+  { name: "WEISS PROFIL", src: "/media/partners/weiss.png" },
+  { name: "REYNAERS", src: "/media/partners/reynaers.png" },
+  { name: "TRESPA", src: "/media/partners/trespa.png" },
 ];
 
 export const services = [

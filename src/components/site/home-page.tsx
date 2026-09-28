@@ -105,13 +105,19 @@ export function HomePage() {
         </section>
 
         <section aria-label="Parteneri" className="border-y border-line bg-surface">
-          <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-5 gap-y-2 px-4 py-5 sm:px-6">
-            <p className="text-xs tracking-widest text-muted">PARTENERI</p>
-            {partners.map((name) => (
-              <p key={name} className="whitespace-nowrap text-sm font-semibold tracking-wide text-ink">
-                {name}
-              </p>
-            ))}
+          <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 sm:px-6 md:flex-row md:items-center md:gap-10">
+            <p className="shrink-0 text-xs tracking-widest text-muted">PARTENERI</p>
+            <ul className="flex flex-1 flex-wrap items-center gap-x-10 gap-y-5">
+              {partners.map((item) => (
+                <li key={item.name}>
+                  <img
+                    src={item.src}
+                    alt={item.name}
+                    className="h-10 w-auto max-w-40 object-contain sm:h-12"
+                  />
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
