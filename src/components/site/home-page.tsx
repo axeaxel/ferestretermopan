@@ -176,7 +176,7 @@ export function HomePage() {
               <p className="text-sm tracking-wide text-gold">Video</p>
               <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">Europlay Alco, pe scurt.</h2>
               <p className="mt-4 text-base leading-6 text-mist">
-                Clipul de prezentare al firmei, apoi profilul scurt.
+                Clipul de prezentare al firmei.
               </p>
               <a
                 href="#contact"
