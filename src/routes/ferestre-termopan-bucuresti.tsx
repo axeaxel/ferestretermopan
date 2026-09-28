@@ -29,9 +29,9 @@ function TermopanPage() {
             aluminiu și etanșăm golul, ca să rămână căldura în casă și zgomotul afară.
           </p>
           <p>
-            Lucrarea pornește de la măsurătoare. Îți spunem ce profil se potrivește, cât durează
-            montajul și îți dăm devizul în lei, înainte să începem. Showroom-ul este pe Bd.
-            Theodor Pallady nr. 37, Sector 3.
+            Lucrarea pornește de la măsurătoare. Îți spunem ce profil se potrivește — Rehau,
+            Gealan, Salamander sau aluminiu — și cât durează montajul, înainte să începem.
+            Showroom-ul este pe Bd. Theodor Pallady nr. 37, Sector 3.
           </p>
           <p>
             Același număr rezolvă și feroneria care nu mai închide, plasele și închiderea

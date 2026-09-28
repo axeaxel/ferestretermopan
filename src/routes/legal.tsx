@@ -62,8 +62,8 @@ function LegalPage() {
               reparații de feronerie, în București.
             </p>
             <p>
-              Site-ul nu publică un preț fix. Devizul se face după măsurători, în lei. Vizita în
-              showroom se stabilește la telefon.
+              Site-ul nu publică un preț fix. Oferta se stabilește la telefon, după ce vedem
+              lucrarea. Vizita în showroom se stabilește tot la telefon.
             </p>
             <p>Conținutul site-ului nu poate fi copiat fără acordul firmei.</p>
           </div>

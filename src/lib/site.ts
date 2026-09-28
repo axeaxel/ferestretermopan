@@ -18,6 +18,7 @@ export const PROFILE_VIDEO_ID = "u98aHHP8lKI";
 export const partners = [
   { name: "ALUMIL", src: "/media/partners/alumil.png" },
   { name: "GEALAN", src: "/media/partners/gealan.png" },
+  { name: "REHAU", src: "/media/partners/rehau.png" },
   { name: "SALAMANDER", src: "/media/partners/salamander.png" },
   { name: "WEISS PROFIL", src: "/media/partners/weiss.png" },
   { name: "REYNAERS", src: "/media/partners/reynaers.png" },
@@ -141,6 +142,7 @@ export const structuredData = {
       sameAs: [GOOGLE_REVIEWS],
       knowsAbout: [
         "Tâmplărie PVC",
+        "Rehau",
         "Tâmplărie aluminiu",
         "Perete cortină",
         "Montaj termopane",
@@ -176,12 +178,12 @@ export const pageMeta = {
   termopan: {
     title: "Ferestre Termopan București | Montaj Europlay Alco",
     description:
-      "Montaj ferestre termopan în București, făcut de Europlay Alco SRL. Tâmplărie PVC și aluminiu, de la măsurătoare la etanșare. Deviz în lei, showroom Pallady 37.",
+      "Montaj ferestre termopan în București, făcut de Europlay Alco SRL. Tâmplărie PVC Rehau, Gealan și Salamander, plus aluminiu. Showroom pe Bd. Theodor Pallady nr. 37.",
   },
 };
 
 export const about =
-  "ferestretermopan.ro este site-ul oficial al Europlay Alco SRL. De peste 25 de ani montăm ferestre termopan, tâmplărie PVC și aluminiu în București, de la măsurătoare până la etanșare. Lucrăm pentru apartamente și case, cu profile de marcă și feronerie care se închide corect. Ne găsești la showroom, pe Bd. Theodor Pallady nr. 37, Sector 3, sau la telefon, pentru un deviz în lei.";
+  "ferestretermopan.ro este site-ul oficial al Europlay Alco SRL, firmă înființată în 2017. Montăm ferestre termopan, tâmplărie PVC și aluminiu în București, de la măsurătoare până la etanșare. Lucrăm pentru apartamente și case, cu profile de marcă, inclusiv Rehau, și feronerie care se închide corect. Ne găsești la showroom, pe Bd. Theodor Pallady nr. 37, Sector 3, sau la telefon.";
 
 export const reviews = [
   {
@@ -226,7 +228,7 @@ export const faqs = [
   },
   {
     q: "Cum se calculează costul?",
-    a: "Depinde de dimensiune, număr și calitatea geamului. După măsurătoare îți dăm un deviz, în lei.",
+    a: "Depinde de dimensiune, număr și calitatea geamului. Sună și îți spunem cum se calculează costul.",
   },
   {
     q: "Cât țin geamurile termopan?",

@@ -171,6 +171,27 @@ export function HomePage() {
           </ul>
         </section>
 
+        <section id="sector-3" className="scroll-mt-28 border-y border-line bg-surface">
+          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+            <p className="text-sm font-medium tracking-wide text-muted">Sector 3</p>
+            <h2 className="mt-2 font-display text-4xl leading-tight text-ink sm:text-5xl">
+              Termopane Sector 3
+            </h2>
+            <p className="mt-4 max-w-2xl text-base leading-6 text-muted">
+              Showroom-ul este pe Bd. Theodor Pallady nr. 37. De aici montăm ferestre termopan în
+              Sector 3: Pallady, Titan, Dristor, Balta Albă și Vitan. La PVC folosim Rehau,
+              Gealan, Salamander și Weiss Profil.
+            </p>
+            <a
+              href={`tel:${PHONE_TEL}`}
+              className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-accent px-6 text-sm font-semibold text-on-accent"
+            >
+              <Phone className="size-4" aria-hidden="true" />
+              {PHONE_DISPLAY}
+            </a>
+          </div>
+        </section>
+
         <section id="video" className="scroll-mt-28 bg-deep text-paper">
           <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-5 lg:items-center">
             <div className="lg:col-span-2">

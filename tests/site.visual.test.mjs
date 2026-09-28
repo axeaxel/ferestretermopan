@@ -327,7 +327,11 @@ test("search title, heading size, and the facts row", { timeout: 30000 }, async 
     assert.doesNotMatch(await page.locator("body").innerText(), /€|\beuro\b/i);
     await page.getByRole("heading", { name: "Europlay Alco SRL" }).waitFor();
     assert.match(await page.locator("body").innerText(), /ferestretermopan\.ro este site-ul oficial al Europlay Alco SRL/);
-    await page.getByRole("heading", { name: "Showroom" }).waitFor();
+    await page.getByRole("heading", { name: "Termopane Sector 3" }).waitFor();
+    assert.match(await page.locator("#sector-3").innerText(), /Pallady nr\. 37/);
+    assert.match(await page.locator("#sector-3").innerText(), /0731 289 684/);
+    assert.doesNotMatch(await page.locator("body").innerText(), /deviz în lei/i);
+    assert.doesNotMatch(await page.locator("body").innerText(), /De peste 25 de ani montăm/);
     assert.match(await page.locator("#video").innerText(), /Clipul de prezentare al firmei\./);
     assert.doesNotMatch(await page.locator("#video").innerText(), /site-ul vechi|vechi/i);
     assertClean(monitors, "seo");
@@ -337,7 +341,7 @@ test("search title, heading size, and the facts row", { timeout: 30000 }, async 
 });
 
 test("partner logos load and do not overlap", { timeout: 30000 }, async () => {
-  const names = ["ALUMIL", "GEALAN", "SALAMANDER", "WEISS PROFIL", "REYNAERS", "TRESPA"];
+  const names = ["ALUMIL", "GEALAN", "REHAU", "SALAMANDER", "WEISS PROFIL", "REYNAERS", "TRESPA"];
   const { page, monitors } = await openPage({ width: 1280, height: 800 });
   try {
     const section = page.locator('section[aria-label="Parteneri"]');
