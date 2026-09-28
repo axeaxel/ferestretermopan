@@ -97,7 +97,7 @@ export function HomePage() {
                 <dt className="mt-2 text-sm text-muted">și aluminiu</dt>
               </div>
               <div className="py-4 sm:py-0 sm:pl-6">
-                <dd className="font-display text-3xl leading-none text-ink">Sector 3</dd>
+                <dd className="font-display text-3xl leading-none text-ink">Pallady 37</dd>
                 <dt className="mt-2 text-sm text-muted">showroom în București</dt>
               </div>
             </dl>
@@ -176,8 +176,7 @@ export function HomePage() {
               <p className="text-sm tracking-wide text-gold">Video</p>
               <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">Europlay Alco, pe scurt.</h2>
               <p className="mt-4 text-base leading-6 text-mist">
-                Clipul de prezentare al firmei — același film de pe site-ul vechi. Mai jos,
-                profilul scurt.
+                Clipul de prezentare al firmei, apoi profilul scurt.
               </p>
               <a
                 href="#contact"

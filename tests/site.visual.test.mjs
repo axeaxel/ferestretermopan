@@ -324,11 +324,13 @@ test("search title, heading size, and the facts row", { timeout: 30000 }, async 
     assert.match(factText, /ani de experiență/);
     assert.match(factText, /PVC/);
     assert.match(factText, /și aluminiu/);
-    assert.match(factText, /Sector 3/);
+    assert.match(factText, /Pallady 37/);
     assert.match(factText, /showroom în București/);
     assert.doesNotMatch(await page.locator("body").innerText(), /€|\beuro\b/i);
     await page.getByRole("heading", { name: "Servicii Europlay Alco" }).waitFor();
     await page.getByRole("heading", { name: "Showroom" }).waitFor();
+    assert.match(await page.locator("#video").innerText(), /Clipul de prezentare al firmei, apoi profilul scurt/);
+    assert.doesNotMatch(await page.locator("#video").innerText(), /site-ul vechi|vechi/i);
     assertClean(monitors, "seo");
   } finally {
     await page.close();
