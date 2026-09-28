@@ -86,6 +86,22 @@ test("homepage shows the logo, headline, and photos", { timeout: 30000 }, async 
       "hero photo did not load",
     );
 
+    const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    try {
+      await mobile.goto(base, { waitUntil: "domcontentloaded" });
+      const mobileHero = mobile.locator("img[alt*='Feronerie']");
+      await mobileHero.waitFor();
+      const fit = await mobileHero.evaluate((img) => {
+        const ratio = img.naturalWidth / img.naturalHeight;
+        const shown = img.clientWidth / img.clientHeight;
+        return { ratio, shown, fit: getComputedStyle(img).objectFit };
+      });
+      assert.equal(fit.fit, "contain");
+      assert.ok(Math.abs(fit.shown - fit.ratio) < 0.05, `hero is cropped on mobile (${fit.shown} vs ${fit.ratio})`);
+    } finally {
+      await mobile.close();
+    }
+
     const broken = await page.evaluate(() =>
       [...document.images].filter((img) => !img.complete || img.naturalWidth === 0).map((img) => img.src),
     );

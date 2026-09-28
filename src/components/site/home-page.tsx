@@ -61,7 +61,7 @@ export function HomePage() {
                 alt="Feronerie la o ușă termopan, arătată de Gheorghe Chircu"
                 width={1792}
                 height={1008}
-                className="aspect-[4/3] w-full object-cover sm:aspect-video"
+                className="h-auto w-full object-contain"
               />
             </figure>
           </div>
