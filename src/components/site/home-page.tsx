@@ -182,7 +182,7 @@ export function HomePage() {
                 href="#contact"
                 className="mt-6 inline-flex min-h-11 items-center rounded-full bg-accent px-5 text-sm font-semibold text-on-accent"
               >
-                Vreau ofertă
+                Cere ofertă
               </a>
             </div>
             <div className="lg:col-span-3">
