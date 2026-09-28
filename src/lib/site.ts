@@ -93,7 +93,7 @@ export const works = [
   { src: "/media/work-2.webp", alt: "Tâmplărie montată de Europlay Alco" },
   { src: "/media/work-3.webp", alt: "Lucrare de tâmplărie PVC" },
   { src: "/media/work-4.webp", alt: "Fereastră termopan după montaj" },
-  { src: "/media/hero.jpg", alt: "Detaliu feronerie la tâmplărie maro" },
+  { src: "/media/feronerie.jpg", alt: "Detaliu feronerie la tâmplărie maro" },
   { src: "/media/work-5.webp", alt: "Tâmplărie aluminiu București" },
   { src: "/media/work-6.webp", alt: "Lucrare Europlay Alco" },
   { src: "/media/inlocuire.webp", alt: "Înlocuirea tâmplăriei vechi" },

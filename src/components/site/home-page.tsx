@@ -57,9 +57,9 @@ export function HomePage() {
             <figure className="overflow-hidden rounded-card border border-line bg-deep shadow-sm">
               <img
                 src="/media/hero.jpg"
-                alt="Feronerie și tâmplărie maro, detaliu de montaj Europlay Alco"
-                width={1280}
-                height={720}
+                alt="Feronerie la o ușă termopan, arătată de Gheorghe Chircu"
+                width={1792}
+                height={1008}
                 className="aspect-[4/3] w-full object-cover sm:aspect-video"
               />
             </figure>
