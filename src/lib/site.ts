@@ -143,7 +143,7 @@ export const faqs = [
   },
   {
     q: "Cum se calculează costul?",
-    a: "Depinde de dimensiune, număr și calitatea geamului. Cere un deviz — orientativ, înlocuirea unui geam este între 100 și 300 de euro.",
+    a: "Depinde de dimensiune, număr și calitatea geamului. După măsurătoare îți dăm un deviz, în lei.",
   },
   {
     q: "Cât țin geamurile termopan?",

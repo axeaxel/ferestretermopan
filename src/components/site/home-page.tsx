@@ -87,18 +87,18 @@ export function HomePage() {
                 Cere ofertă
               </a>
             </div>
-            <dl className="mt-10 flex flex-wrap gap-x-8 gap-y-4 border-t border-line pt-6">
-              <div className="min-w-28">
-                <dt className="text-xs tracking-wide text-muted">Experiență</dt>
-                <dd className="mt-1 font-display text-2xl">25+ ani</dd>
+            <dl className="mt-10 grid grid-cols-1 border-t border-line sm:grid-cols-3 sm:divide-x sm:divide-line">
+              <div className="border-b border-line py-4 sm:border-b-0 sm:py-0 sm:pr-6">
+                <dd className="font-display text-3xl leading-none text-ink">25+</dd>
+                <dt className="mt-2 text-sm text-muted">ani de experiență</dt>
               </div>
-              <div className="min-w-28">
-                <dt className="text-xs tracking-wide text-muted">Profil</dt>
-                <dd className="mt-1 font-display text-2xl">PVC / Al</dd>
+              <div className="border-b border-line py-4 sm:border-b-0 sm:px-6 sm:py-0">
+                <dd className="font-display text-3xl leading-none text-ink">PVC</dd>
+                <dt className="mt-2 text-sm text-muted">și aluminiu</dt>
               </div>
-              <div className="min-w-28">
-                <dt className="text-xs tracking-wide text-muted">Un geam</dt>
-                <dd className="mt-1 font-display text-2xl">100–300 €</dd>
+              <div className="py-4 sm:py-0 sm:pl-6">
+                <dd className="font-display text-3xl leading-none text-ink">Sector 3</dd>
+                <dt className="mt-2 text-sm text-muted">showroom în București</dt>
               </div>
             </dl>
           </div>
