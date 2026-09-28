@@ -446,6 +446,74 @@ test("contact and local service pages have their own titles", { timeout: 30000 }
     assert.match(await page.locator("h1").innerText(), /Ferestre termopan în București/);
     const description = await page.locator('meta[name="description"]').getAttribute("content");
     assert.match(description, /Europlay Alco SRL/);
+    assert.doesNotMatch(description, /deviz în lei/i);
+    assert.doesNotMatch(await page.locator("body").innerText(), /deviz în lei/i);
+  } finally {
+    await page.close();
+  }
+});
+
+test("Sector 3 section lists the showroom, neighbourhoods, and phone", { timeout: 30000 }, async () => {
+  const { page, monitors } = await openPage({ width: 1280, height: 800 });
+  try {
+    const section = page.locator("#sector-3");
+    await section.scrollIntoViewIfNeeded();
+    const heading = section.getByRole("heading", { name: "Termopane Sector 3" });
+    assert.ok((await heading.boundingBox())?.width > 200, "Sector 3 heading is not visible");
+    const text = await section.innerText();
+    for (const place of ["Pallady", "Titan", "Dristor", "Balta Albă", "Vitan", "Rehau"]) {
+      assert.match(text, new RegExp(place));
+    }
+    assert.match(text, /Theodor Pallady nr\. 37/);
+    const phone = section.locator('a[href="tel:+40731289684"]');
+    assert.match(await phone.innerText(), /0731 289 684/);
+    assert.ok((await phone.boundingBox())?.height >= 44, "Sector 3 phone button is too small");
+
+    const headingBox = await heading.boundingBox();
+    const phoneBox = await phone.boundingBox();
+    const textBox = await section.locator("p").nth(1).boundingBox();
+    assert.ok(headingBox && phoneBox && textBox);
+    const overlaps =
+      textBox.y < phoneBox.y + phoneBox.height - 1 &&
+      textBox.y + textBox.height - 1 > phoneBox.y &&
+      textBox.x < phoneBox.x + phoneBox.width - 1 &&
+      textBox.x + textBox.width - 1 > phoneBox.x;
+    assert.equal(overlaps, false, "Sector 3 text overlaps the phone button");
+    assert.ok(phoneBox.y >= headingBox.y + headingBox.height - 1, "phone sits on the heading");
+    assertClean(monitors, "sector 3");
+  } finally {
+    await page.close();
+  }
+});
+
+test("the firm is dated 2017 and Rehau is a partner", { timeout: 30000 }, async () => {
+  const { page, monitors } = await openPage({ width: 390, height: 844 });
+  try {
+    const about = page.getByText("firmă înființată în 2017");
+    await about.scrollIntoViewIfNeeded();
+    assert.match(await about.innerText(), /Europlay Alco SRL, firmă înființată în 2017/);
+    assert.doesNotMatch(await page.locator("body").innerText(), /De peste 25 de ani montăm/);
+    assert.match(await page.locator("body").innerText(), /experiență de peste 25 de ani/);
+    assert.doesNotMatch(await page.locator("body").innerText(), /deviz în lei/i);
+
+    const rehau = page.locator('img[alt="REHAU"]');
+    await rehau.scrollIntoViewIfNeeded();
+    assert.equal(await rehau.evaluate((img) => img.complete && img.naturalWidth > 0), true);
+    const overflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth + 1,
+    );
+    assert.equal(overflow, false, "mobile page scrolls sideways");
+
+    const schema = await page.evaluate(() => {
+      const node = document.querySelector('script[type="application/ld+json"]');
+      return JSON.parse(node.textContent);
+    });
+    const business = schema["@graph"].find((item) => item["@type"] === "HomeAndConstructionBusiness");
+    assert.ok(business.knowsAbout.includes("Rehau"));
+
+    await page.goto(`${base}/legal`, { waitUntil: "domcontentloaded" });
+    assert.doesNotMatch(await page.locator("body").innerText(), /deviz în lei/i);
+    assertClean(monitors, "2017 and Rehau");
   } finally {
     await page.close();
   }
