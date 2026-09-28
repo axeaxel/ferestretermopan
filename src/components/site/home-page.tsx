@@ -65,10 +65,10 @@ export function HomePage() {
           </div>
           <div className="order-2 lg:order-1 lg:col-span-6">
             <p className="text-sm font-medium tracking-wide text-muted">București · Sector 3</p>
-            <h1 className="mt-3 max-w-xl font-display text-4xl leading-tight text-ink sm:text-5xl lg:text-6xl">
-              Tâmplărie PVC și aluminiu, montată cu atenție.
+            <h1 className="mt-3 max-w-xl font-display text-[2.6rem] leading-tight text-ink sm:text-5xl">
+              Tâmplărie PVC și aluminiu în București
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
+            <p className="mt-5 max-w-xl text-base leading-6 text-muted">
               Vei fi surprins de calitatea și atenția la detalii oferită de Europlay Alco la
               tâmplăria din aluminiu și PVC. Peste 25 de ani de ferestre termopan, în București.
             </p>
@@ -124,9 +124,13 @@ export function HomePage() {
         <section id="servicii" className="scroll-mt-28 mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <div className="max-w-2xl">
             <p className="text-sm font-medium tracking-wide text-muted">Servicii</p>
-            <h2 className="mt-2 font-display text-3xl text-ink sm:text-4xl">
-              De la profil nou până la mecanismul care nu mai închide.
+            <h2 className="mt-2 font-display text-4xl leading-tight text-ink sm:text-5xl">
+              Servicii Europlay Alco
             </h2>
+            <p className="mt-4 max-w-2xl text-base leading-6 text-muted">
+              Ferestre termopan, tâmplărie PVC și aluminiu, închideri de balcon și reparații de
+              feronerie, montate în București.
+            </p>
           </div>
           <div className="mt-8 grid gap-4">
             {featured.map((item, index) => (
@@ -140,8 +144,8 @@ export function HomePage() {
                   className={`aspect-[4/3] w-full object-cover md:aspect-auto md:h-full md:min-h-72 ${index % 2 === 1 ? "md:order-2" : ""}`}
                 />
                 <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8">
-                  <h3 className="font-display text-2xl sm:text-3xl">{item.title}</h3>
-                  <p className="mt-3 max-w-prose text-sm leading-relaxed text-muted">{item.text}</p>
+                  <h3 className="font-display text-2xl leading-tight">{item.title}</h3>
+                  <p className="mt-3 max-w-prose text-base leading-6 text-muted">{item.text}</p>
                 </div>
               </article>
             ))}
@@ -158,8 +162,8 @@ export function HomePage() {
                   className="size-20 shrink-0 rounded-xl object-cover sm:size-24"
                 />
                 <div className="min-w-0 py-1">
-                  <h3 className="font-display text-xl leading-tight">{item.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted">{item.text}</p>
+                  <h3 className="font-display text-2xl leading-tight">{item.title}</h3>
+                  <p className="mt-1 text-base leading-6 text-muted">{item.text}</p>
                 </div>
               </li>
             ))}
@@ -170,8 +174,8 @@ export function HomePage() {
           <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-5 lg:items-center">
             <div className="lg:col-span-2">
               <p className="text-sm tracking-wide text-gold">Video</p>
-              <h2 className="mt-2 font-display text-3xl sm:text-4xl">Europlay Alco, pe scurt.</h2>
-              <p className="mt-4 text-sm leading-relaxed text-mist">
+              <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">Europlay Alco, pe scurt.</h2>
+              <p className="mt-4 text-base leading-6 text-mist">
                 Clipul de prezentare al firmei — același film de pe site-ul vechi. Mai jos,
                 profilul scurt.
               </p>
@@ -217,12 +221,12 @@ export function HomePage() {
           </div>
           <div className="lg:col-span-7">
             <p className="text-sm font-medium tracking-wide text-muted">Încredere</p>
-            <h2 className="mt-2 font-display text-3xl sm:text-4xl">Gheorghe Chircu</h2>
-            <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">
+            <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">Gheorghe Chircu</h2>
+            <p className="mt-4 max-w-xl text-base leading-6 text-muted">
               Cu o experiență de peste 25 de ani în montarea de ferestre cu geam termopan,
               tâmplărie PVC și aluminiu — un profesionist cu atenție la detalii.
             </p>
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">
+            <p className="mt-4 max-w-xl text-base leading-6 text-muted">
               Clienții îl cunosc ca Gigi: reglaje, plase, mânere, mecanisme blocate și tâmplărie
               nouă, făcute curat și la timp.
             </p>
@@ -231,8 +235,8 @@ export function HomePage() {
 
         <section id="lucrari" className="scroll-mt-28 border-y border-line bg-surface">
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-            <h2 className="font-display text-3xl sm:text-4xl">Lucrări</h2>
-            <p className="mt-2 max-w-xl text-sm text-muted">
+            <h2 className="font-display text-4xl leading-tight sm:text-5xl">Lucrări</h2>
+            <p className="mt-3 max-w-xl text-base leading-6 text-muted">
               Câteva montaje din teren. Apasă o poză ca s-o vezi mai mare.
             </p>
             <ul className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
@@ -255,7 +259,7 @@ export function HomePage() {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-sm font-medium tracking-wide text-muted">Google</p>
-              <h2 className="mt-2 font-display text-3xl sm:text-4xl">Ce spun clienții</h2>
+              <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">Ce spun clienții</h2>
             </div>
             <a
               href={GOOGLE_REVIEWS}
@@ -300,7 +304,7 @@ export function HomePage() {
 
         <section id="intrebari" className="scroll-mt-28 border-t border-line">
           <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-            <h2 className="font-display text-3xl sm:text-4xl">Întrebări</h2>
+            <h2 className="font-display text-4xl leading-tight sm:text-5xl">Întrebări</h2>
             <div className="mt-6 divide-y divide-line border-y border-line">
               {faqs.map((item) => (
                 <details key={item.q} className="group py-1">
@@ -315,7 +319,7 @@ export function HomePage() {
                       </span>
                     </span>
                   </summary>
-                  <p className="pb-4 text-sm leading-relaxed text-muted">{item.a}</p>
+                  <p className="pb-4 text-base leading-6 text-muted">{item.a}</p>
                 </details>
               ))}
             </div>
@@ -326,10 +330,10 @@ export function HomePage() {
           <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-2">
             <div>
               <p className="text-sm font-medium tracking-wide text-muted">Contact</p>
-              <h2 className="mt-2 font-display text-3xl sm:text-4xl">Showroom și telefon</h2>
-              <p className="mt-4 text-sm leading-relaxed text-muted">
-                Suntem bucuroși să te invităm în showroom, să vezi ferestrele, ușile și
-                accesoriile. Cel mai simplu rămâne un telefon.
+              <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">Showroom</h2>
+              <p className="mt-4 max-w-xl text-base leading-6 text-muted">
+                Suntem bucuroși să te invităm în showroom, să vezi ferestrele și ușile din
+                termopan, și accesoriile. Cel mai simplu rămâne un telefon.
               </p>
               <a
                 href={`tel:${PHONE_TEL}`}

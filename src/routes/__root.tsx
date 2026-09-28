@@ -3,7 +3,7 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "Europlay Alco — Tâmplărie PVC și aluminiu București";
+const APP_NAME = "Tâmplărie PVC & Aluminiu București – Ferestre Termopan";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -14,7 +14,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Europlay Alco SRL — tâmplărie PVC și aluminiu în București. Ferestre termopan, închideri de balcon, plase, reparații. Sună la 0731 289 684.",
+          "Descoperă soluții de tâmplărie PVC și aluminiu în București. Ferestre termopan, personalizare și montaj. Europlay Alco, Sector 3. Sună la 0731 289 684.",
       },
       { name: "theme-color", content: "#141a2a" },
     ],
