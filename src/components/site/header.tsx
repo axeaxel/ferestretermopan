@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, Phone, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { PHONE_DISPLAY, PHONE_TEL } from "@/lib/site";
 
 const links = [
   { hash: "", label: "Acasă" },
@@ -46,25 +45,15 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-2">
-          <a
-            href={`tel:${PHONE_TEL}`}
-            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-4 text-sm font-semibold text-on-accent"
-          >
-            <Phone className="size-4" aria-hidden="true" />
-            <span className="hidden sm:inline">{PHONE_DISPLAY}</span>
-            <span className="sm:hidden">Sună</span>
-          </a>
-          <button
-            type="button"
-            className="inline-flex size-11 items-center justify-center rounded-full border border-mist/40 text-paper lg:hidden"
-            aria-expanded={open}
-            aria-label={open ? "Închide meniul" : "Deschide meniul"}
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
-        </div>
+        <button
+          type="button"
+          className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-mist/40 text-paper lg:hidden"
+          aria-expanded={open}
+          aria-label={open ? "Închide meniul" : "Deschide meniul"}
+          onClick={() => setOpen((v) => !v)}
+        >
+          {open ? <X className="size-5" /> : <Menu className="size-5" />}
+        </button>
       </div>
 
       {open ? (
