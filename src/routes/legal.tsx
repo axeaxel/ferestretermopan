@@ -52,9 +52,8 @@ function LegalPage() {
               reparații de feronerie, în București.
             </p>
             <p>
-              Prețurile menționate (orientativ 100–300 euro pentru înlocuirea unui geam) nu sunt
-              o ofertă fermă. Devizul se face după măsurători. Vizita în showroom se stabilește la
-              telefon.
+              Site-ul nu publică un preț fix. Devizul se face după măsurători, în lei. Vizita în
+              showroom se stabilește la telefon.
             </p>
             <p>Conținutul site-ului nu poate fi copiat fără acordul firmei.</p>
           </div>

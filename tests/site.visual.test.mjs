@@ -288,8 +288,138 @@ test("legal page opens from the footer", { timeout: 30000 }, async () => {
     await page.getByRole("heading", { name: "Confidențialitate" }).waitFor();
     await page.getByRole("heading", { name: "Termeni" }).waitFor();
     await page.getByRole("heading", { name: "Cookie-uri" }).waitFor();
+    assert.doesNotMatch(await page.locator("body").innerText(), /€|\beuro\b/i);
     assertClean(monitors, "legal");
   } finally {
     await page.close();
   }
 });
+
+test("search title, heading size, and the facts row", { timeout: 30000 }, async () => {
+  const { page, monitors } = await openPage({ width: 1280, height: 800 });
+  try {
+    assert.equal(
+      await page.title(),
+      "Tâmplărie PVC & Aluminiu București – Ferestre Termopan",
+    );
+    const description = await page.locator('meta[name="description"]').getAttribute("content");
+    assert.match(description, /tâmplărie PVC și aluminiu în București/i);
+    assert.match(description, /0731 289 684/);
+    assert.ok(description.length >= 80 && description.length <= 170, description);
+    assert.equal(await page.locator("html").getAttribute("lang"), "ro");
+
+    const heading = page.getByRole("heading", { level: 1 });
+    assert.equal((await heading.textContent())?.trim(), "Tâmplărie PVC și aluminiu în București");
+    assert.equal(await page.getByRole("heading", { level: 1 }).count(), 1);
+    const headingSize = await heading.evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
+    assert.ok(headingSize >= 40 && headingSize <= 52, `h1 is ${headingSize}px`);
+    const leadSize = await page
+      .locator("h1 + p")
+      .evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
+    assert.equal(leadSize, 16);
+
+    const facts = page.locator("dl").first();
+    const factText = await facts.innerText();
+    assert.match(factText, /25\+/);
+    assert.match(factText, /ani de experiență/);
+    assert.match(factText, /PVC/);
+    assert.match(factText, /și aluminiu/);
+    assert.match(factText, /Sector 3/);
+    assert.match(factText, /showroom în București/);
+    assert.doesNotMatch(await page.locator("body").innerText(), /€|\beuro\b/i);
+    await page.getByRole("heading", { name: "Servicii Europlay Alco" }).waitFor();
+    await page.getByRole("heading", { name: "Showroom" }).waitFor();
+    assertClean(monitors, "seo");
+  } finally {
+    await page.close();
+  }
+});
+
+test("partner logos load and do not overlap", { timeout: 30000 }, async () => {
+  const names = ["ALUMIL", "GEALAN", "SALAMANDER", "WEISS PROFIL", "REYNAERS", "TRESPA"];
+  const { page, monitors } = await openPage({ width: 1280, height: 800 });
+  try {
+    const section = page.locator('section[aria-label="Parteneri"]');
+    await section.scrollIntoViewIfNeeded();
+    const boxes = await section.locator("img").evaluateAll((imgs) =>
+      imgs.map((img) => {
+        const rect = img.getBoundingClientRect();
+        return {
+          alt: img.alt,
+          src: img.getAttribute("src"),
+          naturalWidth: img.naturalWidth,
+          x: rect.x,
+          y: rect.y,
+          w: rect.width,
+          h: rect.height,
+        };
+      }),
+    );
+    assert.deepEqual(
+      boxes.map((box) => box.alt),
+      names,
+    );
+    for (const box of boxes) {
+      assert.ok(box.naturalWidth > 0, `${box.alt} did not load`);
+      assert.match(box.src, /^\/media\/partners\//);
+      assert.ok(box.h >= 36 && box.h <= 56, `${box.alt} height ${box.h}`);
+      assert.ok(box.w > 24, `${box.alt} is too narrow`);
+    }
+    for (let i = 0; i < boxes.length; i += 1) {
+      for (let j = i + 1; j < boxes.length; j += 1) {
+        const a = boxes[i];
+        const b = boxes[j];
+        const overlaps = a.x < b.x + b.w - 1 && a.x + a.w - 1 > b.x && a.y < b.y + b.h - 1 && a.y + a.h - 1 > b.y;
+        assert.equal(overlaps, false, `${a.alt} overlaps ${b.alt}`);
+      }
+    }
+    const label = await section.getByText("PARTENERI").boundingBox();
+    assert.ok(label);
+    for (const box of boxes) {
+      const overlaps =
+        label.x < box.x + box.w - 1 &&
+        label.x + label.width - 1 > box.x &&
+        label.y < box.y + box.h - 1 &&
+        label.y + label.height - 1 > box.y;
+      assert.equal(overlaps, false, `PARTENERI overlaps ${box.alt}`);
+    }
+    assertClean(monitors, "partners");
+  } finally {
+    await page.close();
+  }
+});
+
+test("structured data describes the local business", { timeout: 30000 }, async () => {
+  const { page, monitors } = await openPage({ width: 1280, height: 800 });
+  try {
+    const data = await page.evaluate(() => {
+      const nodes = [...document.querySelectorAll('script[type="application/ld+json"]')];
+      return nodes.map((node) => JSON.parse(node.textContent));
+    });
+    assert.equal(data.length, 1);
+    const graph = data[0];
+    assert.equal(graph["@context"], "https://schema.org");
+    assert.equal(JSON.stringify(graph).includes("SearchAction"), false);
+    const business = graph["@graph"].find((item) => item["@type"] === "HomeAndConstructionBusiness");
+    const website = graph["@graph"].find((item) => item["@type"] === "WebSite");
+    assert.equal(business.name, "Europlay Alco");
+    assert.equal(business.legalName, "Europlay Alco SRL");
+    assert.equal(business.url, "https://ferestretermopan.ro/");
+    assert.equal(business.telephone, "+40731289684");
+    assert.equal(business.email, "gigichircu@yahoo.com");
+    assert.equal(business.taxID, "37899543");
+    assert.equal(business.identifier.value, "J40/11304/2017");
+    assert.equal(business.address.addressCountry, "RO");
+    assert.equal(business.address.addressRegion, "Sector 3");
+    assert.ok(business.geo.latitude > 44.3 && business.geo.latitude < 44.5);
+    assert.ok(business.geo.longitude > 26.0 && business.geo.longitude < 26.3);
+    assert.equal(business.sameAs[0], REVIEWS);
+    assert.ok(business.knowsAbout.includes("Tâmplărie PVC"));
+    assert.equal(website.inLanguage, "ro-RO");
+    assert.equal(website.publisher["@id"], business["@id"]);
+    assertClean(monitors, "schema");
+  } finally {
+    await page.close();
+  }
+});
+
