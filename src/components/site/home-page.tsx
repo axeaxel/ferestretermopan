@@ -85,7 +85,7 @@ export function HomePage() {
 
         <section aria-label="Parteneri" className="border-y border-line">
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-            <h2 className="section-title text-ink">Parteneri</h2>
+            <h2 className="section-title">Parteneri</h2>
             <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-5 rounded-card bg-white px-6 py-6">
               {partners.map((item) => (
                 <li key={item.name}>
@@ -101,7 +101,7 @@ export function HomePage() {
         </section>
 
         <section id="servicii" className="scroll-mt-28 mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <h2 className="section-title text-ink">Servicii Europlay Alco</h2>
+          <h2 className="section-title">Servicii Europlay Alco</h2>
           <div className="mt-12 grid gap-16">
             {featured.map((item, index) => (
               <article key={item.title} className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
@@ -111,7 +111,7 @@ export function HomePage() {
                   className={`aspect-video w-full rounded-card object-cover ${index % 2 === 1 ? "md:order-2" : ""}`}
                 />
                 <div className="min-w-0">
-                  <h3 className="section-title text-ink">{item.title}</h3>
+                  <h3 className="section-title">{item.title}</h3>
                   <p className="mt-4 text-base leading-6 text-muted">{item.text}</p>
                 </div>
               </article>
@@ -120,7 +120,7 @@ export function HomePage() {
           <ul className="mt-16 grid gap-x-16 gap-y-10 sm:grid-cols-2">
             {rest.map((item) => (
               <li key={item.title}>
-                <h3 className="section-title text-ink">{item.title}</h3>
+                <h3 className="section-title">{item.title}</h3>
                 <p className="mt-3 text-base leading-6 text-muted">{item.text}</p>
               </li>
             ))}
@@ -136,7 +136,7 @@ export function HomePage() {
             />
           </div>
           <div className="lg:col-span-7">
-            <h2 className="section-title section-title-lg text-ink">Încredere</h2>
+            <h2 className="section-title section-title-lg">Încredere</h2>
             <p className="mt-4 max-w-xl text-base leading-6 text-muted">
               Cu o experiență de peste 25 de ani în montarea de ferestre cu geam termopan,
               tâmplărie PVC și aluminiu — un profesionist cu atenție la detalii.
@@ -280,7 +280,7 @@ export function HomePage() {
 
         <section id="intrebari" className="scroll-mt-28 border-t border-line">
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-            <h2 className="section-title text-ink">Întrebări</h2>
+            <h2 className="section-title">Întrebări</h2>
             <ul className="mt-10 grid gap-x-16 gap-y-8 sm:grid-cols-2">
               {faqs.map((item) => (
                 <li key={item.q}>
@@ -294,7 +294,7 @@ export function HomePage() {
 
         <section id="contact" className="scroll-mt-28 border-t border-line">
           <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-            <h2 className="section-title text-ink">Showroom</h2>
+            <h2 className="section-title">Showroom</h2>
             <p className="mt-4 text-base leading-6 text-muted">
               Suntem bucuroși să te invităm în showroom, pe Bd. Theodor Pallady nr. 37, să vezi
               ferestrele, ușile și accesoriile. Montăm în Sector 3: Pallady, Titan, Dristor, Balta

@@ -528,12 +528,16 @@ test("section titles use the Onest style from the old site", { timeout: 30000 },
           weight: computed.fontWeight,
           align: computed.textAlign,
           size: parseFloat(computed.fontSize),
+          color: computed.color,
+          stroke: computed.webkitTextStrokeWidth,
         };
       });
       assert.match(style.font, /Onest/, `${name} font is ${style.font}`);
-      assert.equal(style.weight, "700", `${name} is not bold`);
+      assert.equal(style.weight, "400", `${name} should not be bold`);
       assert.equal(style.align, "center", `${name} is not centered`);
-      assert.ok(style.size >= 40, `${name} is only ${style.size}px`);
+      assert.equal(style.color, "rgba(0, 0, 0, 0)", `${name} should be transparent`);
+      assert.ok(parseFloat(style.stroke) > 0, `${name} has no outline`);
+      assert.ok(style.size >= 80, `${name} is only ${style.size}px`);
     }
     const trust = await page.getByRole("heading", { name: "Încredere" }).evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
     const services = await page
