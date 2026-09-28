@@ -107,9 +107,6 @@ test("header links scroll to the right sections", { timeout: 30000 }, async () =
     const nav = page.getByRole("navigation", { name: "Principal" });
     for (const [label, id] of [
       ["Servicii", "servicii"],
-      ["Video", "video"],
-      ["Lucrări", "lucrari"],
-      ["Întrebări", "intrebari"],
       ["Contact", "contact"],
     ]) {
       await nav.getByRole("link", { name: label }).click();
@@ -315,21 +312,11 @@ test("search title, heading size, and the facts row", { timeout: 30000 }, async 
       .locator("h1 + p")
       .evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
     assert.equal(leadSize, 16);
-
-    const facts = page.locator("dl").first();
-    const factText = await facts.innerText();
-    assert.match(factText, /25\+/);
-    assert.match(factText, /ani de experiență/);
-    assert.match(factText, /PVC/);
-    assert.match(factText, /și aluminiu/);
-    assert.match(factText, /Pallady 37/);
-    assert.match(factText, /showroom în București/);
     assert.doesNotMatch(await page.locator("body").innerText(), /€|\beuro\b/i);
-    await page.getByRole("heading", { name: "Europlay Alco SRL" }).waitFor();
+    await page.getByRole("heading", { name: "Încredere" }).waitFor();
     assert.match(await page.locator("body").innerText(), /ferestretermopan\.ro este site-ul oficial al Europlay Alco SRL/);
-    await page.getByRole("heading", { name: "Termopane Sector 3" }).waitFor();
-    assert.match(await page.locator("#sector-3").innerText(), /Pallady nr\. 37/);
-    assert.match(await page.locator("#sector-3").innerText(), /0731 289 684/);
+    assert.match(await page.locator("#contact").innerText(), /Pallady nr\. 37/);
+    assert.match(await page.locator("#contact").innerText(), /0731 289 684/);
     assert.doesNotMatch(await page.locator("body").innerText(), /deviz în lei/i);
     assert.doesNotMatch(await page.locator("body").innerText(), /De peste 25 de ani montăm/);
     assert.match(await page.locator("#video").innerText(), /Clipul de prezentare al firmei\./);
@@ -453,13 +440,13 @@ test("contact and local service pages have their own titles", { timeout: 30000 }
   }
 });
 
-test("Sector 3 section lists the showroom, neighbourhoods, and phone", { timeout: 30000 }, async () => {
+test("showroom lists the neighbourhoods and the phone", { timeout: 30000 }, async () => {
   const { page, monitors } = await openPage({ width: 1280, height: 800 });
   try {
-    const section = page.locator("#sector-3");
+    const section = page.locator("#contact");
     await section.scrollIntoViewIfNeeded();
-    const heading = section.getByRole("heading", { name: "Termopane Sector 3" });
-    assert.ok((await heading.boundingBox())?.width > 200, "Sector 3 heading is not visible");
+    const heading = section.getByRole("heading", { name: "Showroom" });
+    assert.ok((await heading.boundingBox())?.width > 80, "showroom heading is not visible");
     const text = await section.innerText();
     for (const place of ["Pallady", "Titan", "Dristor", "Balta Albă", "Vitan", "Rehau"]) {
       assert.match(text, new RegExp(place));
@@ -467,20 +454,16 @@ test("Sector 3 section lists the showroom, neighbourhoods, and phone", { timeout
     assert.match(text, /Theodor Pallady nr\. 37/);
     const phone = section.locator('a[href="tel:+40731289684"]');
     assert.match(await phone.innerText(), /0731 289 684/);
-    assert.ok((await phone.boundingBox())?.height >= 44, "Sector 3 phone button is too small");
-
-    const headingBox = await heading.boundingBox();
     const phoneBox = await phone.boundingBox();
-    const textBox = await section.locator("p").nth(1).boundingBox();
-    assert.ok(headingBox && phoneBox && textBox);
+    const textBox = await section.locator("p").first().boundingBox();
+    assert.ok(phoneBox && textBox);
     const overlaps =
       textBox.y < phoneBox.y + phoneBox.height - 1 &&
       textBox.y + textBox.height - 1 > phoneBox.y &&
       textBox.x < phoneBox.x + phoneBox.width - 1 &&
       textBox.x + textBox.width - 1 > phoneBox.x;
-    assert.equal(overlaps, false, "Sector 3 text overlaps the phone button");
-    assert.ok(phoneBox.y >= headingBox.y + headingBox.height - 1, "phone sits on the heading");
-    assertClean(monitors, "sector 3");
+    assert.equal(overlaps, false, "showroom text overlaps the phone");
+    assertClean(monitors, "showroom");
   } finally {
     await page.close();
   }

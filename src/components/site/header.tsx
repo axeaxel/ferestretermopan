@@ -4,10 +4,8 @@ import { useState } from "react";
 import { PHONE_DISPLAY, PHONE_TEL } from "@/lib/site";
 
 const links = [
+  { hash: "", label: "Acasă" },
   { hash: "servicii", label: "Servicii" },
-  { hash: "video", label: "Video" },
-  { hash: "lucrari", label: "Lucrări" },
-  { hash: "intrebari", label: "Întrebări" },
   { hash: "contact", label: "Contact" },
 ];
 
@@ -38,9 +36,9 @@ export function Header() {
         <nav className="hidden shrink-0 items-center gap-5 lg:flex" aria-label="Principal">
           {links.map((item) => (
             <Link
-              key={item.hash}
+              key={item.label}
               to="/"
-              hash={item.hash}
+              hash={item.hash || undefined}
               className="text-sm text-mist transition-colors hover:text-paper"
             >
               {item.label}
@@ -73,10 +71,10 @@ export function Header() {
         <nav className="border-t border-mist/30 bg-deep px-4 py-3 lg:hidden" aria-label="Mobil">
           <ul className="flex flex-col">
             {links.map((item) => (
-              <li key={item.hash}>
+              <li key={item.label}>
                 <Link
                   to="/"
-                  hash={item.hash}
+                  hash={item.hash || undefined}
                   className="block py-3 text-base text-paper"
                   onClick={() => setOpen(false)}
                 >

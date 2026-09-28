@@ -65,43 +65,20 @@ export function HomePage() {
             </figure>
           </div>
           <div className="order-2 lg:order-1 lg:col-span-6">
-            <p className="text-sm font-medium tracking-wide text-muted">București · Sector 3</p>
-            <h1 className="mt-3 max-w-xl font-display text-[2.6rem] leading-tight text-ink sm:text-5xl">
+            <h1 className="max-w-xl font-display text-[2.6rem] leading-tight text-ink sm:text-5xl">
               Tâmplărie PVC și aluminiu în București
             </h1>
             <p className="mt-5 max-w-xl text-base leading-6 text-muted">
               Vei fi surprins de calitatea și atenția la detalii oferită de Europlay Alco la
               tâmplăria din aluminiu și PVC.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={`tel:${PHONE_TEL}`}
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-accent px-6 text-sm font-semibold text-on-accent"
-              >
-                <Phone className="size-4" aria-hidden="true" />
-                {PHONE_DISPLAY}
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-line bg-surface px-6 text-sm font-semibold text-ink"
-              >
-                Cere ofertă
-              </a>
-            </div>
-            <dl className="mt-10 grid grid-cols-1 border-t border-line sm:grid-cols-3 sm:divide-x sm:divide-line">
-              <div className="border-b border-line py-4 sm:border-b-0 sm:py-0 sm:pr-6">
-                <dd className="font-display text-3xl leading-none text-ink">25+</dd>
-                <dt className="mt-2 text-sm text-muted">ani de experiență</dt>
-              </div>
-              <div className="border-b border-line py-4 sm:border-b-0 sm:px-6 sm:py-0">
-                <dd className="font-display text-3xl leading-none text-ink">PVC</dd>
-                <dt className="mt-2 text-sm text-muted">și aluminiu</dt>
-              </div>
-              <div className="py-4 sm:py-0 sm:pl-6">
-                <dd className="font-display text-3xl leading-none text-ink">Pallady 37</dd>
-                <dt className="mt-2 text-sm text-muted">showroom în București</dt>
-              </div>
-            </dl>
+            <a
+              href={`tel:${PHONE_TEL}`}
+              className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-accent px-6 text-sm font-semibold text-on-accent"
+            >
+              <Phone className="size-4" aria-hidden="true" />
+              {PHONE_DISPLAY}
+            </a>
           </div>
         </section>
 
@@ -123,73 +100,32 @@ export function HomePage() {
         </section>
 
         <section id="servicii" className="scroll-mt-28 mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <div className="max-w-2xl">
-            <p className="text-sm font-medium tracking-wide text-muted">Servicii</p>
-            <h2 className="mt-2 font-display text-4xl leading-tight text-ink sm:text-5xl">
-              Servicii Europlay Alco
-            </h2>
-            <p className="mt-4 max-w-2xl text-base leading-6 text-muted">
-              Ferestre termopan, tâmplărie PVC și aluminiu, închideri de balcon și reparații de
-              feronerie, montate în București.
-            </p>
-          </div>
-          <div className="mt-8 grid gap-4">
+          <h2 className="text-center font-display text-4xl leading-tight text-ink sm:text-5xl">
+            Servicii Europlay Alco
+          </h2>
+          <div className="mt-12 grid gap-16">
             {featured.map((item, index) => (
-              <article
-                key={item.title}
-                className="grid overflow-hidden rounded-card border border-line bg-surface md:grid-cols-2"
-              >
+              <article key={item.title} className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
                 <img
                   src={item.image}
                   alt=""
-                  className={`aspect-[4/3] w-full object-cover md:aspect-auto md:h-full md:min-h-72 ${index % 2 === 1 ? "md:order-2" : ""}`}
+                  className={`aspect-video w-full rounded-card object-cover ${index % 2 === 1 ? "md:order-2" : ""}`}
                 />
-                <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8">
-                  <h3 className="font-display text-2xl leading-tight">{item.title}</h3>
-                  <p className="mt-3 max-w-prose text-base leading-6 text-muted">{item.text}</p>
+                <div className="min-w-0">
+                  <h3 className="font-display text-3xl leading-tight">{item.title}</h3>
+                  <p className="mt-4 text-base leading-6 text-muted">{item.text}</p>
                 </div>
               </article>
             ))}
           </div>
-          <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+          <ul className="mt-16 grid gap-x-16 gap-y-10 sm:grid-cols-2">
             {rest.map((item) => (
-              <li
-                key={item.title}
-                className="flex items-start gap-4 rounded-card border border-line bg-surface p-3"
-              >
-                <img
-                  src={item.image}
-                  alt=""
-                  className="size-20 shrink-0 rounded-xl object-cover sm:size-24"
-                />
-                <div className="min-w-0 py-1">
-                  <h3 className="font-display text-2xl leading-tight">{item.title}</h3>
-                  <p className="mt-1 text-base leading-6 text-muted">{item.text}</p>
-                </div>
+              <li key={item.title}>
+                <h3 className="font-display text-2xl leading-tight">{item.title}</h3>
+                <p className="mt-3 text-base leading-6 text-muted">{item.text}</p>
               </li>
             ))}
           </ul>
-        </section>
-
-        <section id="sector-3" className="scroll-mt-28 border-y border-line bg-surface">
-          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-            <p className="text-sm font-medium tracking-wide text-muted">Sector 3</p>
-            <h2 className="mt-2 font-display text-4xl leading-tight text-ink sm:text-5xl">
-              Termopane Sector 3
-            </h2>
-            <p className="mt-4 max-w-2xl text-base leading-6 text-muted">
-              Showroom-ul este pe Bd. Theodor Pallady nr. 37. De aici montăm ferestre termopan în
-              Sector 3: Pallady, Titan, Dristor, Balta Albă și Vitan. La PVC folosim Rehau,
-              Gealan, Salamander și Weiss Profil.
-            </p>
-            <a
-              href={`tel:${PHONE_TEL}`}
-              className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-accent px-6 text-sm font-semibold text-on-accent"
-            >
-              <Phone className="size-4" aria-hidden="true" />
-              {PHONE_DISPLAY}
-            </a>
-          </div>
         </section>
 
         <section id="video" className="scroll-mt-28 bg-deep text-paper">
@@ -242,7 +178,7 @@ export function HomePage() {
           </div>
           <div className="lg:col-span-7">
             <p className="text-sm font-medium tracking-wide text-muted">Despre noi</p>
-            <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">Europlay Alco SRL</h2>
+            <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">Încredere</h2>
             <p className="mt-4 max-w-xl text-base leading-6 text-muted">{about}</p>
             <h3 className="mt-8 font-display text-2xl">Gheorghe Chircu</h3>
             <p className="mt-4 max-w-xl text-base leading-6 text-muted">
@@ -355,8 +291,9 @@ export function HomePage() {
               <p className="text-sm font-medium tracking-wide text-muted">Contact</p>
               <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">Showroom</h2>
               <p className="mt-4 max-w-xl text-base leading-6 text-muted">
-                Suntem bucuroși să te invităm în showroom, să vezi ferestrele și ușile din
-                termopan, și accesoriile. Cel mai simplu rămâne un telefon.
+                Suntem bucuroși să te invităm în showroom, pe Bd. Theodor Pallady nr. 37, să vezi
+                ferestrele, ușile și accesoriile. Montăm în Sector 3: Pallady, Titan, Dristor,
+                Balta Albă și Vitan. La PVC folosim Rehau, Gealan, Salamander și Weiss Profil.
               </p>
               <a
                 href={`tel:${PHONE_TEL}`}

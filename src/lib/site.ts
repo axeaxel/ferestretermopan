@@ -183,7 +183,7 @@ export const pageMeta = {
 };
 
 export const about =
-  "ferestretermopan.ro este site-ul oficial al Europlay Alco SRL, firmă înființată în 2017. Montăm ferestre termopan, tâmplărie PVC și aluminiu în București, de la măsurătoare până la etanșare. Lucrăm pentru apartamente și case, cu profile de marcă, inclusiv Rehau, și feronerie care se închide corect. Ne găsești la showroom, pe Bd. Theodor Pallady nr. 37, Sector 3, sau la telefon.";
+  "ferestretermopan.ro este site-ul oficial al Europlay Alco SRL, firmă înființată în 2017.";
 
 export const reviews = [
   {
