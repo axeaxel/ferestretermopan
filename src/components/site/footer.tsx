@@ -16,8 +16,9 @@ export function Footer() {
             />
             <p className="font-display text-xl">Europlay Alco</p>
           </div>
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-mist">
-            Europlay Alco SRL · tâmplărie PVC și aluminiu, montaj și reparații în București.
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-mist">
+            ferestretermopan.ro este site-ul oficial al Europlay Alco SRL. Montăm ferestre
+            termopan, tâmplărie PVC și aluminiu în București.
           </p>
         </div>
         <div className="text-sm leading-relaxed text-mist">
@@ -34,6 +35,12 @@ export function Footer() {
             {EMAIL}
           </a>
           <div className="mt-6 flex flex-col gap-2 text-mist">
+            <Link to="/contact" className="hover:text-paper">
+              Contact
+            </Link>
+            <Link to="/ferestre-termopan-bucuresti" className="hover:text-paper">
+              Ferestre termopan București
+            </Link>
             <Link to="/legal" hash="confidentialitate" className="hover:text-paper">
               Confidențialitate
             </Link>
@@ -48,7 +55,7 @@ export function Footer() {
       </div>
       <div className="border-t border-line/40">
         <p className="mx-auto max-w-6xl px-4 py-4 text-xs text-mist sm:px-6">
-          © {new Date().getFullYear()} Europlay Alco. Toate drepturile rezervate.
+          © {new Date().getFullYear()} Europlay Alco SRL. Toate drepturile rezervate. {LEGAL}.
         </p>
       </div>
     </footer>

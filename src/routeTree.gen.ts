@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as FerestreTermopanBucurestiRouteImport } from './routes/ferestre-termopan-bucuresti'
 import { Route as LegalRouteImport } from './routes/legal'
 
 const IndexRoute = IndexRouteImport.update({
@@ -17,6 +19,17 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FerestreTermopanBucurestiRoute =
+  FerestreTermopanBucurestiRouteImport.update({
+    id: '/ferestre-termopan-bucuresti',
+    path: '/ferestre-termopan-bucuresti',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LegalRoute = LegalRouteImport.update({
   id: '/legal',
   path: '/legal',
@@ -25,27 +38,35 @@ const LegalRoute = LegalRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
+  '/ferestre-termopan-bucuresti': typeof FerestreTermopanBucurestiRoute
   '/legal': typeof LegalRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
+  '/ferestre-termopan-bucuresti': typeof FerestreTermopanBucurestiRoute
   '/legal': typeof LegalRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contact': typeof ContactRoute
+  '/ferestre-termopan-bucuresti': typeof FerestreTermopanBucurestiRoute
   '/legal': typeof LegalRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/legal'
+  fullPaths: '/' | '/contact' | '/ferestre-termopan-bucuresti' | '/legal'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/legal'
-  id: '__root__' | '/' | '/legal'
+  to: '/' | '/contact' | '/ferestre-termopan-bucuresti' | '/legal'
+  id: '__root__' | '/' | '/contact' | '/ferestre-termopan-bucuresti' | '/legal'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContactRoute: typeof ContactRoute
+  FerestreTermopanBucurestiRoute: typeof FerestreTermopanBucurestiRoute
   LegalRoute: typeof LegalRoute
 }
 
@@ -56,6 +77,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ferestre-termopan-bucuresti': {
+      id: '/ferestre-termopan-bucuresti'
+      path: '/ferestre-termopan-bucuresti'
+      fullPath: '/ferestre-termopan-bucuresti'
+      preLoaderRoute: typeof FerestreTermopanBucurestiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/legal': {
@@ -70,6 +105,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContactRoute: ContactRoute,
+  FerestreTermopanBucurestiRoute: FerestreTermopanBucurestiRoute,
   LegalRoute: LegalRoute,
 }
 export const routeTree = rootRouteImport

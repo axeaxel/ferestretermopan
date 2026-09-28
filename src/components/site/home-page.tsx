@@ -5,6 +5,7 @@ import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import {
   ADDRESS_LINES,
+  about,
   EMAIL,
   faqs,
   GOOGLE_REVIEWS,
@@ -219,8 +220,10 @@ export function HomePage() {
             </div>
           </div>
           <div className="lg:col-span-7">
-            <p className="text-sm font-medium tracking-wide text-muted">Încredere</p>
-            <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">Gheorghe Chircu</h2>
+            <p className="text-sm font-medium tracking-wide text-muted">Despre noi</p>
+            <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">Europlay Alco SRL</h2>
+            <p className="mt-4 max-w-xl text-base leading-6 text-muted">{about}</p>
+            <h3 className="mt-8 font-display text-2xl">Gheorghe Chircu</h3>
             <p className="mt-4 max-w-xl text-base leading-6 text-muted">
               Cu o experiență de peste 25 de ani în montarea de ferestre cu geam termopan,
               tâmplărie PVC și aluminiu — un profesionist cu atenție la detalii.

@@ -298,12 +298,10 @@ test("legal page opens from the footer", { timeout: 30000 }, async () => {
 test("search title, heading size, and the facts row", { timeout: 30000 }, async () => {
   const { page, monitors } = await openPage({ width: 1280, height: 800 });
   try {
-    assert.equal(
-      await page.title(),
-      "Tâmplărie PVC & Aluminiu București – Ferestre Termopan",
-    );
+    assert.equal(await page.title(), "Ferestre Termopan București | Europlay Alco");
     const description = await page.locator('meta[name="description"]').getAttribute("content");
-    assert.match(description, /tâmplărie PVC și aluminiu în București/i);
+    assert.match(description, /Europlay Alco/);
+    assert.match(description, /ferestretermopan\.ro/);
     assert.match(description, /0731 289 684/);
     assert.ok(description.length >= 80 && description.length <= 170, description);
     assert.equal(await page.locator("html").getAttribute("lang"), "ro");
@@ -327,7 +325,8 @@ test("search title, heading size, and the facts row", { timeout: 30000 }, async 
     assert.match(factText, /Pallady 37/);
     assert.match(factText, /showroom în București/);
     assert.doesNotMatch(await page.locator("body").innerText(), /€|\beuro\b/i);
-    await page.getByRole("heading", { name: "Servicii Europlay Alco" }).waitFor();
+    await page.getByRole("heading", { name: "Europlay Alco SRL" }).waitFor();
+    assert.match(await page.locator("body").innerText(), /ferestretermopan\.ro este site-ul oficial al Europlay Alco SRL/);
     await page.getByRole("heading", { name: "Showroom" }).waitFor();
     assert.match(await page.locator("#video").innerText(), /Clipul de prezentare al firmei\./);
     assert.doesNotMatch(await page.locator("#video").innerText(), /site-ul vechi|vechi/i);
@@ -417,6 +416,9 @@ test("structured data describes the local business", { timeout: 30000 }, async (
     assert.ok(business.geo.longitude > 26.0 && business.geo.longitude < 26.3);
     assert.equal(business.sameAs[0], REVIEWS);
     assert.ok(business.knowsAbout.includes("Tâmplărie PVC"));
+    assert.equal(business.alternateName, "ferestretermopan.ro");
+    assert.equal(website.name, "ferestretermopan.ro");
+    assert.equal(website.alternateName, "Europlay Alco");
     assert.equal(website.inLanguage, "ro-RO");
     assert.equal(website.publisher["@id"], business["@id"]);
     assertClean(monitors, "schema");
@@ -424,4 +426,25 @@ test("structured data describes the local business", { timeout: 30000 }, async (
     await page.close();
   }
 });
+
+test("contact and local service pages have their own titles", { timeout: 30000 }, async () => {
+  const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+  try {
+    await page.goto(`${base}/contact`, { waitUntil: "domcontentloaded" });
+    await page.getByRole("heading", { level: 1 }).waitFor();
+    assert.equal(await page.title(), "Contact Europlay Alco | Ferestre Termopan");
+    assert.match(await page.locator("h1").innerText(), /Contact/);
+    assert.match(await page.locator("body").innerText(), /Theodor Pallady/);
+
+    await page.goto(`${base}/ferestre-termopan-bucuresti`, { waitUntil: "domcontentloaded" });
+    await page.getByRole("heading", { level: 1 }).waitFor();
+    assert.equal(await page.title(), "Ferestre Termopan București | Montaj Europlay Alco");
+    assert.match(await page.locator("h1").innerText(), /Ferestre termopan în București/);
+    const description = await page.locator('meta[name="description"]').getAttribute("content");
+    assert.match(description, /Europlay Alco SRL/);
+  } finally {
+    await page.close();
+  }
+});
+
 

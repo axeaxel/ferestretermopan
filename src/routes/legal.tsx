@@ -4,6 +4,16 @@ import { Header } from "@/components/site/header";
 import { ADDRESS_LINES, EMAIL, LEGAL, PHONE_DISPLAY } from "@/lib/site";
 
 export const Route = createFileRoute("/legal")({
+  head: () => ({
+    meta: [
+      { title: "Informații legale | Europlay Alco" },
+      {
+        name: "description",
+        content:
+          "Datele firmei Europlay Alco SRL, operatorul site-ului ferestretermopan.ro: confidențialitate, termeni și cookie-uri.",
+      },
+    ],
+  }),
   component: LegalPage,
 });
 

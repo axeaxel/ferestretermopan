@@ -108,6 +108,9 @@ export const structuredData = {
       "@id": "https://ferestretermopan.ro/#business",
       name: "Europlay Alco",
       legalName: "Europlay Alco SRL",
+      alternateName: "ferestretermopan.ro",
+      description:
+        "ferestretermopan.ro este site-ul oficial al Europlay Alco SRL, firmă de ferestre termopan, tâmplărie PVC și aluminiu în București.",
       url: "https://ferestretermopan.ro/",
       image: "https://ferestretermopan.ro/media/logo.webp",
       telephone: PHONE_TEL,
@@ -151,12 +154,34 @@ export const structuredData = {
       "@type": "WebSite",
       "@id": "https://ferestretermopan.ro/#website",
       url: "https://ferestretermopan.ro/",
-      name: "Europlay Alco",
+      name: "ferestretermopan.ro",
+      alternateName: "Europlay Alco",
       inLanguage: "ro-RO",
       publisher: { "@id": "https://ferestretermopan.ro/#business" },
     },
   ],
 };
+
+export const pageMeta = {
+  home: {
+    title: "Ferestre Termopan București | Europlay Alco",
+    description:
+      "Europlay Alco montează ferestre termopan, tâmplărie PVC și aluminiu în București. ferestretermopan.ro este site-ul firmei. Pallady 37, Sector 3. 0731 289 684.",
+  },
+  contact: {
+    title: "Contact Europlay Alco | Ferestre Termopan",
+    description:
+      "Cere o ofertă Europlay Alco pentru ferestre termopan în București. Showroom: Bd. Theodor Pallady nr. 37, Sector 3. Telefon 0731 289 684.",
+  },
+  termopan: {
+    title: "Ferestre Termopan București | Montaj Europlay Alco",
+    description:
+      "Montaj ferestre termopan în București, făcut de Europlay Alco SRL. Tâmplărie PVC și aluminiu, de la măsurătoare la etanșare. Deviz în lei, showroom Pallady 37.",
+  },
+};
+
+export const about =
+  "ferestretermopan.ro este site-ul oficial al Europlay Alco SRL. De peste 25 de ani montăm ferestre termopan, tâmplărie PVC și aluminiu în București, de la măsurătoare până la etanșare. Lucrăm pentru apartamente și case, cu profile de marcă și feronerie care se închide corect. Ne găsești la showroom, pe Bd. Theodor Pallady nr. 37, Sector 3, sau la telefon, pentru un deviz în lei.";
 
 export const reviews = [
   {

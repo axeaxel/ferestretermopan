@@ -4,19 +4,11 @@ import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { structuredData } from "@/lib/site";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "Tâmplărie PVC & Aluminiu București – Ferestre Termopan";
-
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: APP_NAME },
-      {
-        name: "description",
-        content:
-          "Descoperă soluții de tâmplărie PVC și aluminiu în București. Ferestre termopan, personalizare și montaj. Europlay Alco, Sector 3. Sună la 0731 289 684.",
-      },
       { name: "theme-color", content: "#141a2a" },
     ],
     links: [
