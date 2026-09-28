@@ -51,10 +51,21 @@ export function HomePage() {
       <Header />
 
       <main id="continut">
-        <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 sm:px-6 lg:grid-cols-12 lg:py-20">
-          <div className="lg:col-span-6">
+        <section className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-8 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:py-20">
+          <div className="order-1 lg:order-2 lg:col-span-6">
+            <figure className="overflow-hidden rounded-card border border-line bg-deep shadow-sm">
+              <img
+                src="/media/hero.jpg"
+                alt="Feronerie și tâmplărie maro, detaliu de montaj Europlay Alco"
+                width={1280}
+                height={720}
+                className="aspect-[4/3] w-full object-cover sm:aspect-video"
+              />
+            </figure>
+          </div>
+          <div className="order-2 lg:order-1 lg:col-span-6">
             <p className="text-sm font-medium tracking-wide text-muted">București · Sector 3</p>
-            <h1 className="mt-3 font-display text-4xl leading-tight text-ink sm:text-5xl lg:text-6xl">
+            <h1 className="mt-3 max-w-xl font-display text-4xl leading-tight text-ink sm:text-5xl lg:text-6xl">
               Tâmplărie PVC și aluminiu, montată cu atenție.
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
@@ -76,59 +87,55 @@ export function HomePage() {
                 Cere ofertă
               </a>
             </div>
-            <dl className="mt-10 grid grid-cols-3 gap-4 border-t border-line pt-6">
-              <div>
+            <dl className="mt-10 flex flex-wrap gap-x-8 gap-y-4 border-t border-line pt-6">
+              <div className="min-w-28">
                 <dt className="text-xs tracking-wide text-muted">Experiență</dt>
                 <dd className="mt-1 font-display text-2xl">25+ ani</dd>
               </div>
-              <div>
+              <div className="min-w-28">
                 <dt className="text-xs tracking-wide text-muted">Profil</dt>
                 <dd className="mt-1 font-display text-2xl">PVC / Al</dd>
               </div>
-              <div>
+              <div className="min-w-28">
                 <dt className="text-xs tracking-wide text-muted">Un geam</dt>
                 <dd className="mt-1 font-display text-2xl">100–300 €</dd>
               </div>
             </dl>
           </div>
-          <div className="lg:col-span-6">
-            <figure className="overflow-hidden rounded-card border border-line bg-deep shadow-sm">
-              <img
-                src="/media/hero.jpg"
-                alt="Feronerie și tâmplărie maro, detaliu de montaj Europlay Alco"
-                width={1280}
-                height={720}
-                className="aspect-video w-full object-cover"
-              />
-            </figure>
-          </div>
         </section>
 
         <section aria-label="Parteneri" className="border-y border-line bg-surface">
-          <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-5 sm:px-6">
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-5 gap-y-2 px-4 py-5 sm:px-6">
             <p className="text-xs tracking-widest text-muted">PARTENERI</p>
             {partners.map((name) => (
-              <p key={name} className="text-sm font-semibold tracking-wide text-ink">
+              <p key={name} className="whitespace-nowrap text-sm font-semibold tracking-wide text-ink">
                 {name}
               </p>
             ))}
           </div>
         </section>
 
-        <section id="servicii" className="scroll-mt-24 mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <section id="servicii" className="scroll-mt-28 mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <div className="max-w-2xl">
             <p className="text-sm font-medium tracking-wide text-muted">Servicii</p>
             <h2 className="mt-2 font-display text-3xl text-ink sm:text-4xl">
               De la profil nou până la mecanismul care nu mai închide.
             </h2>
           </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {featured.map((item) => (
-              <article key={item.title} className="overflow-hidden rounded-card border border-line bg-surface">
-                <img src={item.image} alt="" className="aspect-square w-full object-cover" />
-                <div className="p-5">
-                  <h3 className="font-display text-2xl">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{item.text}</p>
+          <div className="mt-8 grid gap-4">
+            {featured.map((item, index) => (
+              <article
+                key={item.title}
+                className="grid overflow-hidden rounded-card border border-line bg-surface md:grid-cols-2"
+              >
+                <img
+                  src={item.image}
+                  alt=""
+                  className={`aspect-[4/3] w-full object-cover md:aspect-auto md:h-full md:min-h-72 ${index % 2 === 1 ? "md:order-2" : ""}`}
+                />
+                <div className="flex min-w-0 flex-col justify-center p-6 sm:p-8">
+                  <h3 className="font-display text-2xl sm:text-3xl">{item.title}</h3>
+                  <p className="mt-3 max-w-prose text-sm leading-relaxed text-muted">{item.text}</p>
                 </div>
               </article>
             ))}
@@ -137,7 +144,7 @@ export function HomePage() {
             {rest.map((item) => (
               <li
                 key={item.title}
-                className="flex gap-4 rounded-card border border-line bg-surface p-3"
+                className="flex items-start gap-4 rounded-card border border-line bg-surface p-3"
               >
                 <img
                   src={item.image}
@@ -153,7 +160,7 @@ export function HomePage() {
           </ul>
         </section>
 
-        <section id="video" className="scroll-mt-24 bg-deep text-paper">
+        <section id="video" className="scroll-mt-28 bg-deep text-paper">
           <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-5 lg:items-center">
             <div className="lg:col-span-2">
               <p className="text-sm tracking-wide text-gold">Video</p>
@@ -216,7 +223,7 @@ export function HomePage() {
           </div>
         </section>
 
-        <section id="lucrari" className="scroll-mt-24 border-y border-line bg-surface">
+        <section id="lucrari" className="scroll-mt-28 border-y border-line bg-surface">
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
             <h2 className="font-display text-3xl sm:text-4xl">Lucrări</h2>
             <p className="mt-2 max-w-xl text-sm text-muted">
@@ -285,7 +292,7 @@ export function HomePage() {
           </ul>
         </section>
 
-        <section id="intrebari" className="scroll-mt-24 border-t border-line">
+        <section id="intrebari" className="scroll-mt-28 border-t border-line">
           <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
             <h2 className="font-display text-3xl sm:text-4xl">Întrebări</h2>
             <div className="mt-6 divide-y divide-line border-y border-line">
@@ -309,7 +316,7 @@ export function HomePage() {
           </div>
         </section>
 
-        <section id="contact" className="scroll-mt-24 bg-bg">
+        <section id="contact" className="scroll-mt-28 bg-bg">
           <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-2">
             <div>
               <p className="text-sm font-medium tracking-wide text-muted">Contact</p>

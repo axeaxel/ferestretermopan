@@ -15,9 +15,9 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-mist/30 bg-deep/95 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <Link to="/" className="flex min-w-0 items-center gap-3">
+    <header className="sticky top-0 z-40 border-b border-mist/30 bg-deep">
+      <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3 sm:px-6">
+        <Link to="/" className="flex min-w-0 flex-1 items-center gap-3">
           <img
             src="/media/logo.webp"
             alt=""
@@ -29,13 +29,13 @@ export function Header() {
             <span className="block truncate font-display text-lg leading-none text-paper">
               Europlay Alco
             </span>
-            <span className="mt-1 block truncate text-xs tracking-wide text-mist">
+            <span className="mt-1 hidden truncate text-xs tracking-wide text-mist sm:block">
               Tâmplărie PVC & aluminiu
             </span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Principal">
+        <nav className="hidden shrink-0 items-center gap-5 lg:flex" aria-label="Principal">
           {links.map((item) => (
             <Link
               key={item.hash}
@@ -48,7 +48,7 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <a
             href={`tel:${PHONE_TEL}`}
             className="inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-4 text-sm font-semibold text-on-accent"
