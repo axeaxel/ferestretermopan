@@ -334,7 +334,6 @@ export function HomePage() {
               />
             </div>
             <div className="mt-12">
-              <h3 className="font-display text-2xl">Cere ofertă</h3>
               <ContactForm />
             </div>
           </div>
