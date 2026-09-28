@@ -371,7 +371,7 @@ test("partner logos load and do not overlap", { timeout: 30000 }, async () => {
         assert.equal(overlaps, false, `${a.alt} overlaps ${b.alt}`);
       }
     }
-    const label = await section.getByRole("heading", { name: "Parteneri" }).boundingBox();
+    const label = await section.getByText("PARTENERI").boundingBox();
     assert.ok(label);
     for (const box of boxes) {
       const overlaps =
@@ -379,7 +379,7 @@ test("partner logos load and do not overlap", { timeout: 30000 }, async () => {
         label.x + label.width - 1 > box.x &&
         label.y < box.y + box.h - 1 &&
         label.y + label.height - 1 > box.y;
-      assert.equal(overlaps, false, `Parteneri overlaps ${box.alt}`);
+      assert.equal(overlaps, false, `PARTENERI overlaps ${box.alt}`);
     }
     assertClean(monitors, "partners");
   } finally {
@@ -508,43 +508,29 @@ test("the firm is dated 2017 and Rehau is a partner", { timeout: 30000 }, async 
   }
 });
 
-test("section titles use the Onest style from the old site", { timeout: 30000 }, async () => {
+test("section titles are back to the original filled style", { timeout: 30000 }, async () => {
   const { page, monitors } = await openPage({ width: 1280, height: 800 });
   try {
-    for (const name of [
-      "Parteneri",
-      "Servicii Europlay Alco",
-      "Montaj termopane",
-      "Încredere",
-      "Întrebări",
-      "Showroom",
-    ]) {
+    for (const name of ["Servicii Europlay Alco", "Montaj termopane", "Încredere", "Întrebări", "Showroom"]) {
       const heading = page.getByRole("heading", { name, exact: true });
       await heading.scrollIntoViewIfNeeded();
       const style = await heading.evaluate((el) => {
         const computed = getComputedStyle(el);
         return {
           font: computed.fontFamily,
-          weight: computed.fontWeight,
-          align: computed.textAlign,
-          size: parseFloat(computed.fontSize),
           color: computed.color,
           stroke: computed.webkitTextStrokeWidth,
+          size: parseFloat(computed.fontSize),
         };
       });
-      assert.match(style.font, /Onest/, `${name} font is ${style.font}`);
-      assert.equal(style.weight, "400", `${name} should not be bold`);
-      assert.equal(style.align, "center", `${name} is not centered`);
-      assert.equal(style.color, "rgba(0, 0, 0, 0)", `${name} should be transparent`);
-      assert.ok(parseFloat(style.stroke) > 0, `${name} has no outline`);
-      assert.ok(style.size >= 80, `${name} is only ${style.size}px`);
+      assert.match(style.font, /Fraunces/, `${name} font is ${style.font}`);
+      assert.notEqual(style.color, "rgba(0, 0, 0, 0)", `${name} is still transparent`);
+      assert.equal(parseFloat(style.stroke) || 0, 0, `${name} still has an outline`);
+      assert.ok(style.size < 64, `${name} is still oversized at ${style.size}px`);
     }
-    const trust = await page.getByRole("heading", { name: "Încredere" }).evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
-    const services = await page
-      .getByRole("heading", { name: "Servicii Europlay Alco" })
-      .evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
-    assert.ok(trust > services, "Încredere should be larger, like the old site");
-    assertClean(monitors, "heading style");
+    assert.equal(await page.getByRole("heading", { name: "Parteneri", exact: true }).count(), 0);
+    assert.ok(await page.getByText("PARTENERI").count());
+    assertClean(monitors, "original titles");
   } finally {
     await page.close();
   }
