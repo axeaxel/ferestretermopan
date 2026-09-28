@@ -100,6 +100,64 @@ export const works = [
 
 export const GOOGLE_REVIEWS = "https://maps.app.goo.gl/xJoRZhgDbfJ1PGMSA";
 
+export const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "HomeAndConstructionBusiness",
+      "@id": "https://ferestretermopan.ro/#business",
+      name: "Europlay Alco",
+      legalName: "Europlay Alco SRL",
+      url: "https://ferestretermopan.ro/",
+      image: "https://ferestretermopan.ro/media/logo.webp",
+      telephone: PHONE_TEL,
+      email: EMAIL,
+      taxID: "37899543",
+      identifier: {
+        "@type": "PropertyValue",
+        name: "Număr de ordine în registrul comerțului",
+        value: "J40/11304/2017",
+      },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Bd. Theodor Pallady nr. 37, Bloc N4A, sc. 1, et. 1, ap. 2",
+        addressLocality: "București",
+        addressRegion: "Sector 3",
+        addressCountry: "RO",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 44.4101013,
+        longitude: 26.1784396,
+      },
+      hasMap: MAPS_HREF,
+      areaServed: {
+        "@type": "City",
+        name: "București",
+      },
+      sameAs: [GOOGLE_REVIEWS],
+      knowsAbout: [
+        "Tâmplărie PVC",
+        "Tâmplărie aluminiu",
+        "Perete cortină",
+        "Montaj termopane",
+        "Închiderea balconului",
+        "Plase contra insectelor",
+        "Sisteme glisante",
+        "Reparații feronerie",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ferestretermopan.ro/#website",
+      url: "https://ferestretermopan.ro/",
+      name: "Europlay Alco",
+      inLanguage: "ro-RO",
+      publisher: { "@id": "https://ferestretermopan.ro/#business" },
+    },
+  ],
+};
+
 export const reviews = [
   {
     quote: "O adevărată lecție de profesionalism. Recomand cu căldură!",

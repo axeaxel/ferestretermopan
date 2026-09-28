@@ -1,6 +1,7 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
+import { structuredData } from "@/lib/site";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "Tâmplărie PVC & Aluminiu București – Ferestre Termopan";
@@ -38,6 +39,12 @@ export const Route = createRootRoute({
         <HeadContent />
       </head>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData).replaceAll("<", "\\u003c"),
+          }}
+        />
         <PreviewHostBridge />
         <AuthProvider>
           <Outlet />

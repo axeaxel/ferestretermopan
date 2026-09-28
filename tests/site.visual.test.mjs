@@ -67,6 +67,15 @@ test("homepage shows the logo, headline, and photos", { timeout: 30000 }, async 
     assert.ok(box && box.width > 200 && box.height > 30, "headline is not visible");
     assert.match(await heading.textContent(), /Tâmplărie PVC și aluminiu/);
 
+    const business = await page.evaluate(() => {
+      const node = document.querySelector('script[type="application/ld+json"]');
+      return node ? JSON.parse(node.textContent) : null;
+    });
+    const company = business?.["@graph"]?.find((item) => item["@type"] === "HomeAndConstructionBusiness");
+    assert.equal(company?.telephone, "+40731289684");
+    assert.match(company?.address?.streetAddress ?? "", /Theodor Pallady nr\. 37/);
+    assert.equal(company?.address?.addressLocality, "București");
+
     const logo = page.locator("header img").first();
     assert.ok((await logo.boundingBox())?.width > 20, "header logo is missing");
     const hero = page.locator("img[alt*='Feronerie']");
