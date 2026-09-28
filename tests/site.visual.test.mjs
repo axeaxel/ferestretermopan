@@ -514,7 +514,6 @@ test("section titles use the Onest style from the old site", { timeout: 30000 },
     for (const name of [
       "Parteneri",
       "Servicii Europlay Alco",
-      "Montaj termopane",
       "Încredere",
       "Întrebări",
       "Showroom",
@@ -544,6 +543,14 @@ test("section titles use the Onest style from the old site", { timeout: 30000 },
       .getByRole("heading", { name: "Servicii Europlay Alco" })
       .evaluate((el) => parseFloat(getComputedStyle(el).fontSize));
     assert.ok(trust > services, "Încredere should be larger, like the old site");
+    const service = page.getByRole("heading", { name: "Montaj termopane", exact: true });
+    const serviceStyle = await service.evaluate((el) => {
+      const computed = getComputedStyle(el);
+      return { font: computed.fontFamily, color: computed.color, stroke: computed.webkitTextStrokeWidth };
+    });
+    assert.match(serviceStyle.font, /Fraunces/, serviceStyle.font);
+    assert.notEqual(serviceStyle.color, "rgba(0, 0, 0, 0)");
+    assert.equal(parseFloat(serviceStyle.stroke) || 0, 0);
     assertClean(monitors, "heading style");
   } finally {
     await page.close();
