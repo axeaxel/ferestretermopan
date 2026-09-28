@@ -1,4 +1,5 @@
-import { MapPin, Phone } from "lucide-react";
+import { useEffect, useState } from "react";
+import { MapPin, Phone, Star, X } from "lucide-react";
 import { ContactForm } from "@/components/site/contact-form";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
@@ -15,16 +16,33 @@ import {
   PHONE_DISPLAY,
   PHONE_TEL,
   PROFILE_VIDEO_ID,
+  reviews,
   services,
   VIDEO_ID,
+  works,
 } from "@/lib/site";
 
 export function HomePage() {
+  const [photo, setPhoto] = useState<(typeof works)[number] | null>(null);
   const featured = services.filter((item) => item.wide);
   const rest = services.filter((item) => !item.wide);
 
+  useEffect(() => {
+    if (!photo) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setPhoto(null);
+    };
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [photo]);
+
   return (
-    <div className="min-h-screen bg-bg text-ink">
+    <div className="min-h-screen bg-bg pb-28 text-ink lg:pb-0">
       <a
         href="#continut"
         className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-on-accent"
@@ -155,6 +173,75 @@ export function HomePage() {
           </div>
         </section>
 
+        <section id="lucrari" className="scroll-mt-28 border-y border-line bg-surface">
+          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+            <h2 className="font-display text-4xl leading-tight sm:text-5xl">Lucrări</h2>
+            <p className="mt-3 max-w-xl text-base leading-6 text-muted">
+              Câteva montaje din teren. Apasă o poză ca s-o vezi mai mare.
+            </p>
+            <ul className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+              {works.map((item) => (
+                <li key={item.src}>
+                  <button
+                    type="button"
+                    className="block w-full overflow-hidden rounded-xl"
+                    onClick={() => setPhoto(item)}
+                  >
+                    <img src={item.src} alt={item.alt} className="aspect-[4/5] w-full object-cover" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-medium tracking-wide text-muted">Google</p>
+              <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">Ce spun clienții</h2>
+            </div>
+            <a
+              href={GOOGLE_REVIEWS}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-accent"
+            >
+              <span className="flex text-gold" aria-hidden="true">
+                {Array.from({ length: 5 }, (_, i) => (
+                  <Star key={i} className="size-4 fill-current" />
+                ))}
+              </span>
+              5.0 · vezi profilul
+            </a>
+          </div>
+          <ul className="mt-8 grid gap-4 md:grid-cols-2">
+            {reviews.map((item) => (
+              <li key={item.name} className="rounded-card border border-line bg-surface p-6">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={item.photo}
+                    alt=""
+                    width={56}
+                    height={56}
+                    className="size-14 rounded-full object-cover"
+                  />
+                  <div>
+                    <p className="font-semibold text-ink">{item.name}</p>
+                    <p className="text-sm text-muted">{item.when}</p>
+                  </div>
+                </div>
+                <p className="mt-1 flex text-gold" aria-label="5 stele din 5">
+                  {Array.from({ length: 5 }, (_, i) => (
+                    <Star key={i} className="size-4 fill-current" aria-hidden="true" />
+                  ))}
+                </p>
+                <p className="mt-3 font-display text-xl leading-snug">„{item.quote}”</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
         <section id="intrebari" className="scroll-mt-28 border-t border-line">
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
             <h2 className="text-center font-display text-4xl leading-tight sm:text-5xl">Întrebări</h2>
@@ -216,14 +303,6 @@ export function HomePage() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
-            <a
-              href={GOOGLE_REVIEWS}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-block text-sm font-semibold text-accent"
-            >
-              Vezi profilul Google
-            </a>
             <div className="mt-12">
               <h3 className="font-display text-2xl">Cere ofertă</h3>
               <ContactForm />
@@ -233,6 +312,49 @@ export function HomePage() {
       </main>
 
       <Footer />
+
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface p-3 lg:hidden">
+        <div className="grid grid-cols-2 gap-2">
+          <a
+            href={`tel:${PHONE_TEL}`}
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-accent text-sm font-semibold text-on-accent"
+          >
+            <Phone className="size-4" aria-hidden="true" />
+            Sună
+          </a>
+          <a
+            href="#contact"
+            className="inline-flex min-h-12 items-center justify-center rounded-full border border-line bg-surface text-sm font-semibold text-ink"
+          >
+            Cere ofertă
+          </a>
+        </div>
+      </div>
+
+      {photo ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-deep/90 p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label={photo.alt}
+          onClick={() => setPhoto(null)}
+        >
+          <button
+            type="button"
+            className="absolute top-4 right-4 inline-flex size-11 items-center justify-center rounded-full bg-surface text-ink"
+            onClick={() => setPhoto(null)}
+            aria-label="Închide"
+          >
+            <X className="size-5" />
+          </button>
+          <img
+            src={photo.src}
+            alt={photo.alt}
+            className="max-h-[85vh] max-w-full rounded-xl object-contain"
+            onClick={(event) => event.stopPropagation()}
+          />
+        </div>
+      ) : null}
     </div>
   );
 }

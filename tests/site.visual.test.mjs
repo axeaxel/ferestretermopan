@@ -240,14 +240,17 @@ test("contact form rejects bad input and prepares a real request", { timeout: 30
   }
 });
 
-test("the trust photo is on the page", { timeout: 30000 }, async () => {
+test("a work photo opens and closes", { timeout: 30000 }, async () => {
   const { page, monitors } = await openPage({ width: 1280, height: 800 });
   try {
-    const photo = page.locator("img[alt='Gheorghe Chircu, Europlay Alco']");
-    await photo.scrollIntoViewIfNeeded();
-    assert.equal(await photo.evaluate((img) => img.complete && img.naturalWidth > 0), true);
-    assert.equal(await page.getByRole("dialog").count(), 0);
-    assertClean(monitors, "trust photo");
+    await page.locator("#lucrari button").first().click();
+    const dialog = page.getByRole("dialog");
+    await dialog.waitFor();
+    const photo = dialog.locator("img");
+    assert.equal(await photo.evaluate((img) => img.naturalWidth > 0), true);
+    await page.keyboard.press("Escape");
+    await dialog.waitFor({ state: "hidden" });
+    assertClean(monitors, "gallery");
   } finally {
     await page.close();
   }
@@ -265,7 +268,7 @@ test("mobile menu opens and the page does not overflow", { timeout: 30000 }, asy
       () => document.documentElement.scrollWidth > window.innerWidth + 1,
     );
     assert.equal(overflow, false);
-    const call = page.locator("header a[href='tel:+40731289684']");
+    const call = page.locator(".fixed a[href='tel:+40731289684']");
     assert.ok((await call.boundingBox())?.height >= 44, "mobile call button is missing");
     assertClean(monitors, "mobile");
   } finally {
