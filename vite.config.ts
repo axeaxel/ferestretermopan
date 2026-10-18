@@ -170,7 +170,14 @@ export default defineConfig(({ command, isPreview }) => ({
     ...(command === "build" || isPreview
       ? [
           nitro({
-            preset: "vercel",
+            // Vercel stays the default for the app-builder publish. Railway's
+            // start command is `node .output/server/index.mjs`, which only the
+            // node-server preset writes.
+            preset:
+              process.env.NITRO_PRESET ||
+              (process.env.RAILWAY_ENVIRONMENT || process.env.RAILWAY_PROJECT_ID
+                ? "node-server"
+                : "vercel"),
             // Auto-registers server/middleware/* (the PWA install page +
             // manifest + head-tag middleware). Nitro v3 defaults serverDir to
             // false, so removing this silently unwires /?install=1 on deploys.
